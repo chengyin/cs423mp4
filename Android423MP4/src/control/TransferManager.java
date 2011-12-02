@@ -11,8 +11,5 @@ public class TransferManager {
     public TransferManager(Adapter adapter, JobQueue localJobQueue) {
 	this.localJobQueue = localJobQueue;
     }
-
-    public void enqueueRemoteJob(Job job) {
-	localJobQueue.enqueue(job);
-    }
+    
 }
