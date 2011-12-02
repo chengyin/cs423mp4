@@ -1,5 +1,7 @@
 package task.matrix;
 
+import java.io.Serializable;
+
 import task.Result;
 import task.Results;
 import matrix.Matrix;
@@ -10,7 +12,12 @@ import matrix.Matrix;
  * @author chengyin
  * 
  */
-public class MatrixResults extends Results {
+public class MatrixResults extends Results implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 846281009776986124L;
+
     /**
      * Find out how many rows are in the matrix.
      * 

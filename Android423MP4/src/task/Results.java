@@ -18,4 +18,8 @@ public class Results {
     public void addResult(Result result) {
 	this.results.add(result);
     }
+
+    public void addResults(Results remote_result) {
+	this.results.addAll(remote_result.results);
+    }
 }
