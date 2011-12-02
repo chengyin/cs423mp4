@@ -7,10 +7,18 @@ import android.view.View;
 public class ServerActivity extends Activity {
     View stats;
     private View startButton;
+    private int port;
+    private int row;
+    private int col;
     
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.server);
+	
+	Bundle extras = getIntent().getExtras();
+	this.port = extras.getInt("port");
+	this.row = extras.getInt("row");
+	this.col = extras.getInt("col");
 	
 	this.init();
     }
