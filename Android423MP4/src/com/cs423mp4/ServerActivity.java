@@ -1,14 +1,10 @@
 package com.cs423mp4;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import runner.matrix.MatrixServerRunner;
 
 import control.HardwareMonitor;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.widget.TextView;
 
@@ -25,9 +21,12 @@ public class ServerActivity extends MonitorActivity {
     private int row;
     private int col;
     private TextView usageView;
+    private TextView portView;
+    private TextView ipView;
+    private MatrixServerRunner serverRunner;
 
     private HardwareMonitor monitor = new HardwareMonitor();
-
+    
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.server);
@@ -48,18 +47,26 @@ public class ServerActivity extends MonitorActivity {
 	this.stats = this.findViewById(R.id.stats);
 	this.startButton = this.findViewById(R.id.startButton);
 	this.usageView = (TextView) findViewById(R.id.usageView);
-
-	this.stats.setVisibility(View.GONE);
-	this.startButton.setVisibility(View.VISIBLE);
+	
+	this.portView = (TextView) this.findViewById(R.id.portView);
+	this.ipView = (TextView) this.findViewById(R.id.ipView);
 
 	this.displayCPUUsage(this.usageView, this.monitor);
     }
 
     public void start() {
-	this.startButton.setVisibility(View.GONE);
-	this.stats.setVisibility(View.VISIBLE);
-	
 	// Start Server
+	this.serverRunner = new MatrixServerRunner(this.port, this.row, this.col);
+	this.updateIP(this.serverRunner.getServerChannel().getLocalIPAddress());
+	this.updatePort(this.serverRunner.getServerChannel().getLocalPort());
+    }
+
+    private void updatePort(int localPort) {
+	this.portView.setText(Integer.toString(localPort));
+    }
+
+    private void updateIP(String localIPAddress) {
+	this.ipView.setText(localIPAddress);
     }
 
     /**
@@ -72,8 +79,13 @@ public class ServerActivity extends MonitorActivity {
 	this.startButton.setOnClickListener(new View.OnClickListener() {
 	    @Override
 	    public void onClick(View v) {
-		that.start();
+		that.serverRunner.work();
+		
+		that.startButton.setVisibility(View.GONE);
+		that.stats.setVisibility(View.VISIBLE);
 	    }
 	});
+	
+	start();
     }
 }

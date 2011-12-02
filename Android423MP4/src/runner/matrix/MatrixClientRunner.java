@@ -32,8 +32,6 @@ public class MatrixClientRunner extends ClientRunner {
 	}
 	this.results = new MatrixResults();
 	this.worker = new MatrixWorker(0, this.hwMonitor, this.results);
-
-	work();
     }
 
     private void getMatrix() {
@@ -57,7 +55,7 @@ public class MatrixClientRunner extends ClientRunner {
 		matrix2);
     }
 
-    protected void work() {
+    public void work() {
 	getMatrix();
 	createJobQueue();
 	super.work();

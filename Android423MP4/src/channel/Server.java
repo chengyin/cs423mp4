@@ -15,12 +15,11 @@ public class Server extends Channel {
 	super();
 	this.port = port;
 	this.serverSocket = new ServerSocket(port);
-	
 	/*
 	Runnable listener = new Runnable() {
 	    public void run() {
 		try { */
-	listen();
+	//listen();
 	/*	} catch (IOException e) {
 		}
 	    }
@@ -28,10 +27,14 @@ public class Server extends Channel {
 	new Thread(listener).start();*/
     }
     
-    private void listen() throws IOException {
+    public void listen() throws IOException {
 	this.socket = this.serverSocket.accept();
 	this.inStream = new DataInputStream(this.socket.getInputStream());
 	this.outStream = new DataOutputStream(this.socket.getOutputStream());
+    }
+    
+    public int getLocalPort() {
+	return this.serverSocket.getLocalPort();
     }
     
     protected void finalize() {

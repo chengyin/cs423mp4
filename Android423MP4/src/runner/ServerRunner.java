@@ -16,4 +16,12 @@ public class ServerRunner extends Runner {
 	    e.printStackTrace();
 	}
     }
+
+    public int getPort() {
+        return port;
+    }
+
+    public Server getServerChannel() {
+        return serverChannel;
+    }
 }

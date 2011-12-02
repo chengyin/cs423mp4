@@ -30,6 +30,49 @@
         android:layout_height="wrap_content" >
 
         <TableRow
+            android:id="@+id/ipRow"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/ipText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Server IP"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/ipView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.0.0.0"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </TableRow>
+        
+        <TableRow
+            android:id="@+id/portRow"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/portText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Port"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/portView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0000"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </TableRow>
+        
+
+        <TableRow
             android:id="@+id/tableRow1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
@@ -46,7 +89,6 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="200px"
                 android:layout_height="wrap_content" />
-
         </TableRow>
 
         <TableRow
@@ -66,7 +108,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0" />
-
         </TableRow>
 
         <TableRow
@@ -86,7 +127,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0" />
-
         </TableRow>
 
         <TableRow
@@ -107,7 +147,6 @@
                 android:layout_height="wrap_content"
                 android:text="0"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
-
         </TableRow>
     </TableLayout>
 
