@@ -5,6 +5,10 @@ import java.io.RandomAccessFile;
 
 public class HardwareMonitor {
     private double throttle;
+    
+    public HardwareMonitor() {
+	
+    }
 
     /**
      * http://stackoverflow.com/questions/3118234/how-to-get-memory-usage-and-
