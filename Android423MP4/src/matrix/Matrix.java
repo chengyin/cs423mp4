@@ -17,6 +17,12 @@ public class Matrix {
 	}
     }
     
+    public Matrix(int[][] data) {
+	this.row = data.length;
+	this.col = data[0].length;
+	this.data = data;
+    }
+    
     public int getElement(int row, int col) {
 	return this.data[row][col];
     }
