@@ -7,6 +7,7 @@ import control.HardwareMonitor;
 public abstract class Worker {
     protected int id;
     protected HardwareMonitor hwMonitor;
+    protected Results results;
 
     public Worker(int id, HardwareMonitor hwMonitor) {
 	super();
@@ -14,6 +15,12 @@ public abstract class Worker {
 	this.hwMonitor = hwMonitor;
     }
 
+    public Worker(int id, HardwareMonitor hwMonitor, Results results) {
+	super();
+	this.id = id;
+	this.hwMonitor = hwMonitor;
+	this.results = results;
+    }
     public abstract Result processJob(Job job);
 
     /**
