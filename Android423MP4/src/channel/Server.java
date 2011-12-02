@@ -16,15 +16,16 @@ public class Server extends Channel {
 	this.port = port;
 	this.serverSocket = new ServerSocket(port);
 	
+	/*
 	Runnable listener = new Runnable() {
 	    public void run() {
-		try {
-		    listen();
-		} catch (IOException e) {
+		try { */
+	listen();
+	/*	} catch (IOException e) {
 		}
 	    }
 	};	
-	new Thread(listener).start();
+	new Thread(listener).start();*/
     }
     
     private void listen() throws IOException {
