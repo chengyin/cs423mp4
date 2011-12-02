@@ -63,7 +63,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <EditText
-                    android:id="@+id/portText"
+                    android:id="@+id/serverPortText"
                     android:layout_width="200px"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
