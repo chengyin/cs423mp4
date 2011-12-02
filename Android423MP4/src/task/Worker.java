@@ -1,5 +1,35 @@
 package task;
 
-public class Worker {
+import java.util.concurrent.locks.LockSupport;
 
+public abstract class Worker {
+    int id;
+    float throttling_ratio;
+    long startTime;
+
+    public Worker(int id) {
+	super();
+	this.id = id;
+    }
+
+    public abstract Result processJob(Job job);
+
+    /**
+     * http://stackoverflow.com/questions/1202184/throttling-cpu-memory-usage-of
+     * -a-thread-in-java
+     * 
+     * @param job
+     * @return
+     */
+    public Result processJobWithThrottling(Job job) {
+	long startTime = System.currentTimeMillis();
+	Result result = this.processJob(job);
+
+	// Sleep
+	LockSupport.parkNanos((long) (Math.max(0,
+		(System.currentTimeMillis() - startTime) * 1000000
+			* this.throttling_ratio)));
+	
+	return result;
+    }
 }
