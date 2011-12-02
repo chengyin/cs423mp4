@@ -14,7 +14,7 @@ public abstract class Channel {
 	this.outStream.writeUTF(message);
     }
 
-    public String getMessage(String message) throws IOException {
+    public String getMessage() throws IOException {
 	return this.inStream.readUTF();
     }
 
