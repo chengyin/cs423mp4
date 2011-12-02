@@ -4,9 +4,6 @@
 
 package com.cs423mp4;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,50 +19,82 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import control.HardwareMonitor;
 
+/**
+ * Main activity as the home screen for the app. Including basic settings for the next step.
+ * 
+ * @author chengyin
+ *
+ */
 public class Android423MP4Activity extends Activity {
     RadioButton serverRadio;
     RadioButton clientRadio;
     Button startButton;
     View serverSettings;
     View clientSettings;
-    private EditText serverPortText;
-    private EditText rowText;
-    private EditText colText;
-    private EditText ipText;
-    private EditText portText;
 
+    EditText serverPortText;
+    EditText rowText;
+    EditText colText;
+    EditText ipText;
+    EditText portText;
+
+    /**
+     * Create the activity
+     * 
+     * @param savedInstanceState
+     * @see init
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
 
+	this.init();
+    }
+
+    /**
+     * Set default values for UI elements
+     */
+    private void setDefaultValues() {
+	this.serverPortText.setText("5555");
+	this.rowText.setText("100");
+	this.colText.setText("100");
+
+	this.portText.setText("5555");
+    }
+    
+    /**
+     * Initialize the view.
+     */
+    private void initView() {
 	serverRadio = (RadioButton) findViewById(R.id.serverRadio);
 	clientRadio = (RadioButton) findViewById(R.id.clientRadio);
 	startButton = (Button) findViewById(R.id.startButton);
 	serverSettings = findViewById(R.id.serverSettings);
 	clientSettings = findViewById(R.id.clientSettings);
-	
+
 	serverPortText = (EditText) findViewById(R.id.serverPortText);
 	rowText = (EditText) findViewById(R.id.rowText);
 	colText = (EditText) findViewById(R.id.colText);
 	ipText = (EditText) findViewById(R.id.ipText);
 	portText = (EditText) findViewById(R.id.portText);
 
-	setDefaultValues();
+	this.setDefaultValues();
 	// handleThrottleInput();
 	handleStartTypeRadio();
 	handleStart();
-	// displayUsage();
     }
 
-    private void setDefaultValues() {
-	this.serverPortText.setText("5555");
-	this.rowText.setText("100");
-	this.colText.setText("100");
-	
-	this.portText.setText("5555");
+    /**
+     * Initialize the activity
+     */
+    private void init() {
+	this.initView();
     }
 
+    /**
+     * Switch between start type radio buttons, display corresponded settings
+     */
     private void handleStartTypeRadio() {
 	serverRadio.setOnClickListener(new OnClickListener() {
 	    public void onClick(View v) {
@@ -98,9 +127,13 @@ public class Android423MP4Activity extends Activity {
     // });
     // }
 
+    /**
+     * Start the server activity
+     */
     private void startServer() {
 	Intent i = new Intent(getApplicationContext(), ServerActivity.class);
 
+	// Pass settings
 	i.putExtra("port",
 		Integer.parseInt(serverPortText.getText().toString()));
 	i.putExtra("row", Integer.parseInt(rowText.getText().toString()));
@@ -109,15 +142,22 @@ public class Android423MP4Activity extends Activity {
 	startActivity(i);
     }
 
+    /**
+     * Start the client activity 
+     */
     private void startClient() {
 	Intent i = new Intent(getApplicationContext(), ClientActivity.class);
-
+	
+	// pass settings
 	i.putExtra("ip", ipText.getText().toString());
 	i.putExtra("port", Integer.parseInt(portText.getText().toString()));
 
 	startActivity(i);
     }
 
+    /**
+     * Handler for startButton. Start server or client
+     */
     private void handleStart() {
 	startButton.setOnClickListener(new View.OnClickListener() {
 	    @Override

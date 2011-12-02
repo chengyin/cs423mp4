@@ -12,6 +12,12 @@ import android.os.Message;
 import android.view.View;
 import android.widget.TextView;
 
+/**
+ * Server activity. Initialize server, wait for connection and start computation
+ * 
+ * @author chengyin
+ *
+ */
 public class ServerActivity extends MonitorActivity {
     View stats;
     private View startButton;
@@ -25,7 +31,8 @@ public class ServerActivity extends MonitorActivity {
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.server);
-
+	
+	// Get settings
 	Bundle extras = getIntent().getExtras();
 	this.port = extras.getInt("port");
 	this.row = extras.getInt("row");
@@ -51,6 +58,8 @@ public class ServerActivity extends MonitorActivity {
     public void start() {
 	this.startButton.setVisibility(View.GONE);
 	this.stats.setVisibility(View.VISIBLE);
+	
+	// Start Server
     }
 
     /**

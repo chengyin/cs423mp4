@@ -6,7 +6,19 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+/**
+ * Channel for clients
+ * @author chengyin
+ *
+ */
 public class Client extends Channel {
+    /**
+     * Create a channel connecting to a server
+     * @param ip server IP address
+     * @param port server port
+     * @throws UnknownHostException
+     * @throws IOException
+     */
     public Client(String ip, int port) throws UnknownHostException, IOException {
 	this.socket = new Socket(ip, port);
 	this.outStream = new DataOutputStream(socket.getOutputStream());

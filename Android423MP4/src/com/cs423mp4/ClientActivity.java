@@ -8,6 +8,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.TextView;
 
+/**
+ * Client activity. Initialize client, connect to the server and display resouce usages.
+ * 
+ * @author chengyin
+ *
+ */
 public class ClientActivity extends MonitorActivity {
     private String server_IP;
     private int server_port;
@@ -31,7 +37,25 @@ public class ClientActivity extends MonitorActivity {
 	this.init();
     }
 
-    private void init() {
+    /**
+     * Initialize view
+     */
+    private void initView() {
 	this.displayCPUUsage(this.cpuUsageView, this.monitor);
+    }
+    
+    /**
+     * Initialize
+     */
+    private void init() {
+	this.initView();
+	this.start();
+    }
+
+    /**
+     * Start logic, generate client
+     */
+    private void start() {
+	// Start client
     }
 }
