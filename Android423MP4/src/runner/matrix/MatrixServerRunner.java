@@ -1,25 +1,27 @@
 package runner.matrix;
 
 import java.io.IOException;
+import java.io.OptionalDataException;
 
-import runner.ServerRunner;
-import task.Results;
-import task.matrix.MatrixJobQueue;
-import task.matrix.MatrixWorker;
 import matrix.Matrix;
+import runner.ServerRunner;
+import task.matrix.MatrixJobQueue;
+import task.matrix.MatrixResults;
+import task.matrix.MatrixWorker;
 
 public class MatrixServerRunner extends ServerRunner {
     int VALUE = 1;
     Matrix matrix;
     private int row;
     private int col;
-    private MatrixWorker worker;
+    protected MatrixWorker worker;
     private Matrix matrix1Up;
     private Matrix matrix1Down;
     private Matrix matrix2Up;
     private Matrix matrix2Down;
-    private MatrixJobQueue jobQueue;
-    private Results results;
+    protected MatrixJobQueue jobQueue;
+    protected MatrixResults results;
+    protected Matrix resultMatrix;
 
     public MatrixServerRunner(int port, int row, int col) {
 	super();
@@ -27,25 +29,33 @@ public class MatrixServerRunner extends ServerRunner {
 	this.port = port;
 	this.row = row;
 	this.col = col;
-	this.results = new Results();
-	
-	this.worker = new MatrixWorker(0, this.hwMonitor, this.results);
+	this.results = new MatrixResults();
 
-	generateMatrix();
+	this.worker = new MatrixWorker(0, this.hwMonitor, this.results);
+	
 	startServer();
-	sendMatrix();
-	createJobQueue();
 	work();
-	getResults();
-	output();
     }
 
     private void output() {
-	
+	this.resultMatrix = this.results.generateResultMatrix();
     }
 
     private void getResults() {
-	
+	try {
+	    MatrixResults remote_result = (MatrixResults) this.serverChannel
+		    .getObject();
+	    this.results.addResults(remote_result);
+	} catch (OptionalDataException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (ClassNotFoundException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
     }
 
     private void generateMatrix() {
@@ -74,9 +84,19 @@ public class MatrixServerRunner extends ServerRunner {
 		matrix2Up);
     }
 
-    private void work() {
-	while (this.jobQueue.jobCount() > 0) {
-	    this.worker.processJobWithThrottling(this.jobQueue.dequeue());
-	}
+    public Matrix getResultMatrix() {
+	return resultMatrix;
+    }
+    
+    protected void work() {
+	generateMatrix();
+	sendMatrix();
+	createJobQueue();
+	super.work();
+    }
+    
+    protected void finished() {
+	getResults();
+	output();
     }
 }
