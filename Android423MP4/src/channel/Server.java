@@ -5,6 +5,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 
+import android.util.Log;
+
 public class Server extends Channel {
     int port;
     ServerSocket serverSocket;
@@ -13,7 +15,16 @@ public class Server extends Channel {
 	super();
 	this.port = port;
 	this.serverSocket = new ServerSocket(port);
-	this.listen();
+	
+	Runnable listener = new Runnable() {
+	    public void run() {
+		try {
+		    listen();
+		} catch (IOException e) {
+		}
+	    }
+	};	
+	new Thread(listener).start();
     }
     
     private void listen() throws IOException {
