@@ -41,4 +41,8 @@ public class MatrixJobQueue extends JobQueue {
     public void enqueue(MatrixJob job) {
 	super.enqueue(job);
     }
+    
+    public int jobCount() {
+	return this.jobs.size();
+    }
 }
