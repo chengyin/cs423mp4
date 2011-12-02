@@ -1,16 +1,19 @@
 package control;
 
 import task.Worker;
+import task.matrix.MatrixJobQueue;
 
 public class Adaptor {
     private HardwareMonitor monitor;
     private StateManager stateManager;
-    private Worker worker;
+    private MatrixJobQueue localJobQueue;
+    private TransferManager transferManager;
 
     public Adaptor(HardwareMonitor monitor, StateManager stateManager,
-	    Worker worker) {
+	    Worker worker, TransferManager transferManager) {
 	this.monitor = monitor;
 	this.stateManager = stateManager;
-	this.worker = worker;
+	this.localJobQueue = localJobQueue;
+	this.transferManager = transferManager;
     }
 }
