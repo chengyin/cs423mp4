@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OptionalDataException;
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -86,6 +87,15 @@ public abstract class Channel {
 	    Log.e("", ex.toString());
 	}
 	return null;
+    }
+
+    public Object getObject() throws OptionalDataException,
+	    ClassNotFoundException, IOException {
+	if (this.objInStream == null) {
+	    this.objInStream = new ObjectInputStream(this.inStream);
+	}
+
+	return this.objInStream.readObject();
     }
 
     public int getRemotePort() {
