@@ -38,4 +38,20 @@ public class MatrixJob extends Job {
 	
 	return str;
     }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getCol() {
+        return col;
+    }
+
+    public int getM1() {
+        return m1;
+    }
+
+    public int getM2() {
+        return m2;
+    }
 }
