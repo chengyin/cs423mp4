@@ -5,34 +5,60 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 
-/**
- * Channel for server
- * @author chengyin
- *
- */
+import android.util.Log;
+
 public class Server extends Channel {
     int port;
     ServerSocket serverSocket;
     
-    /**
-     * Create a server on a port.
-     * @param port
-     * @throws IOException
-     */
     public Server(int port) throws IOException {
 	super();
 	this.port = port;
 	this.serverSocket = new ServerSocket(port);
-	this.listen();
+	
+	Runnable listener = new Runnable() {
+	    public void run() {
+		try {
+		    listen();
+		} catch (IOException e) {
+		}
+	    }
+	};	
+	new Thread(listener).start();
     }
     
-    /**
-     * Wait for connection, will be blocked till there is a connection
-     * @throws IOException
-     */
     private void listen() throws IOException {
 	this.socket = this.serverSocket.accept();
 	this.inStream = new DataInputStream(this.socket.getInputStream());
 	this.outStream = new DataOutputStream(this.socket.getOutputStream());
+    }
+    
+    protected void finalize() {
+	if (this.socket != null) {
+	    try {
+		this.socket.close();
+	    } catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	    }
+	}
+	
+	if (this.inStream != null) {
+	    try {
+		this.inStream.close();
+	    } catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	    }
+	}
+	
+	if (this.outStream != null) {
+	    try {
+		this.outStream.close();
+	    } catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	    }
+	}
     }
 }

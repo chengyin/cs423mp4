@@ -5,9 +5,14 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OptionalDataException;
 import java.io.Serializable;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.Socket;
+import java.net.SocketException;
+import java.util.Enumeration;
+
+import android.util.Log;
 
 public abstract class Channel {
     Socket socket = null;
@@ -28,6 +33,19 @@ public abstract class Channel {
     }
 
     /**
+     * Read one message through the channel. Will block if no message is in the
+     * buffer.
+     * 
+     * @return message received
+     * @throws IOException
+     */
+    public String getMessage() throws IOException {
+	if (this.inStream == null)
+	    return null;
+	return this.inStream.readUTF();
+    }
+
+    /**
      * Send serialized object through the channel.
      * 
      * @param obj
@@ -42,85 +60,39 @@ public abstract class Channel {
 	this.objOutStream.writeObject(obj);
     }
 
-    /**
-     * Read one message through the channel. Will block if no message is in the
-     * buffer.
-     * 
-     * @return message received
-     * @throws IOException
-     */
-    public String getMessage() throws IOException {
-	return this.inStream.readUTF();
-    }
-
-    public Object getObject() throws OptionalDataException,
-	    ClassNotFoundException, IOException {
-	if (this.objInStream == null) {
-	    this.objInStream = new ObjectInputStream(this.inStream);
-	}
-	
-	return this.objInStream.readObject();
-    }
-
-    /**
-     * @return local port used by the socket
-     */
     public int getLocalPort() {
 	return this.socket.getLocalPort();
     }
 
     /**
-     * @return local IP address
+     * http://www.droidnova.com/get-the-ip-address-of-your-device,304.html
+     * 
+     * @return
      */
     public String getLocalIPAddress() {
-	return this.socket.getLocalAddress().getHostAddress();
+	try {
+	    for (Enumeration<NetworkInterface> en = NetworkInterface
+		    .getNetworkInterfaces(); en.hasMoreElements();) {
+		NetworkInterface intf = en.nextElement();
+		for (Enumeration<InetAddress> enumIpAddr = intf
+			.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+		    InetAddress inetAddress = enumIpAddr.nextElement();
+		    if (!inetAddress.isLoopbackAddress()) {
+			return inetAddress.getHostAddress().toString();
+		    }
+		}
+	    }
+	} catch (SocketException ex) {
+	    Log.e("", ex.toString());
+	}
+	return null;
     }
 
-    /**
-     * @return remote port used by the socket
-     */
     public int getRemotePort() {
 	return this.socket.getPort();
     }
 
-    /**
-     * @return remote IP address
-     */
     public String getRemoteIPAddress() {
 	return this.socket.getInetAddress().getHostAddress();
-    }
-
-    /*
-     * (non-Javadoc) Release all the recourse before being GC'ed
-     * 
-     * @see java.lang.Object#finalize()
-     */
-    protected void finalize() {
-	if (this.socket != null) {
-	    try {
-		this.socket.close();
-	    } catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	    }
-	}
-
-	if (this.inStream != null) {
-	    try {
-		this.inStream.close();
-	    } catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	    }
-	}
-
-	if (this.outStream != null) {
-	    try {
-		this.outStream.close();
-	    } catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	    }
-	}
     }
 }
