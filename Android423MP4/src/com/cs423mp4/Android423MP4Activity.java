@@ -7,7 +7,8 @@ package com.cs423mp4;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import monitor.HardwareMonitor;
+import control.HardwareMonitor;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
