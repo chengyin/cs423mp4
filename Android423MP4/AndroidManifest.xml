@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name="ServerActivity"></activity>
+        <activity android:name="ClientActivity"></activity>
     </application>
 
 </manifest>
