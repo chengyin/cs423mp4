@@ -23,13 +23,16 @@ import android.widget.TextView;
 import control.HardwareMonitor;
 
 public class Android423MP4Activity extends Activity {
-
-    private HardwareMonitor monitor = new HardwareMonitor();
     RadioButton serverRadio;
     RadioButton clientRadio;
     Button startButton;
     View serverSettings;
     View clientSettings;
+    private EditText serverPortText;
+    private EditText rowText;
+    private EditText colText;
+    private EditText ipText;
+    private EditText portText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,11 +44,26 @@ public class Android423MP4Activity extends Activity {
 	startButton = (Button) findViewById(R.id.startButton);
 	serverSettings = findViewById(R.id.serverSettings);
 	clientSettings = findViewById(R.id.clientSettings);
+	
+	serverPortText = (EditText) findViewById(R.id.serverPortText);
+	rowText = (EditText) findViewById(R.id.rowText);
+	colText = (EditText) findViewById(R.id.colText);
+	ipText = (EditText) findViewById(R.id.ipText);
+	portText = (EditText) findViewById(R.id.portText);
 
-	handleThrottleInput();
+	setDefaultValues();
+	// handleThrottleInput();
 	handleStartTypeRadio();
 	handleStart();
 	// displayUsage();
+    }
+
+    private void setDefaultValues() {
+	this.serverPortText.setText("5555");
+	this.rowText.setText("100");
+	this.colText.setText("100");
+	
+	this.portText.setText("5555");
     }
 
     private void handleStartTypeRadio() {
@@ -64,39 +82,40 @@ public class Android423MP4Activity extends Activity {
 	});
     }
 
-    private void handleThrottleInput() {
-	final EditText throttleText = (EditText) findViewById(R.id.throttleText);
-
-	throttleText.setOnKeyListener(new OnKeyListener() {
-	    public boolean onKey(View v, int keyCode, KeyEvent event) {
-		if ((event.getAction() == KeyEvent.ACTION_DOWN)
-			&& (keyCode == KeyEvent.KEYCODE_ENTER)) {
-		    monitor.setThrottle(Double.parseDouble(""
-			    + throttleText.getText()));
-		    return true;
-		}
-		return false;
-	    }
-	});
-    }
+    // private void handleThrottleInput() {
+    // final EditText throttleText = (EditText) findViewById(R.id.throttleText);
+    //
+    // throttleText.setOnKeyListener(new OnKeyListener() {
+    // public boolean onKey(View v, int keyCode, KeyEvent event) {
+    // if ((event.getAction() == KeyEvent.ACTION_DOWN)
+    // && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+    // monitor.setThrottle(Double.parseDouble(""
+    // + throttleText.getText()));
+    // return true;
+    // }
+    // return false;
+    // }
+    // });
+    // }
 
     private void startServer() {
 	Intent i = new Intent(getApplicationContext(), ServerActivity.class);
-	final EditText port = (EditText) findViewById(R.id.serverPortText);
-	final EditText row = (EditText) findViewById(R.id.rowText);
-	final EditText col = (EditText) findViewById(R.id.colText);
 
-	i.putExtra("port", Integer.parseInt(port.getText().toString()));
-	i.putExtra("row", Integer.parseInt(row.getText().toString()));
-	i.putExtra("col", Integer.parseInt(col.getText().toString()));
+	i.putExtra("port",
+		Integer.parseInt(serverPortText.getText().toString()));
+	i.putExtra("row", Integer.parseInt(rowText.getText().toString()));
+	i.putExtra("col", Integer.parseInt(colText.getText().toString()));
 
 	startActivity(i);
     }
 
     private void startClient() {
-	// Intent i = new Intent(getApplicationContext());
-	//
-	// startAcitivty(i);
+	Intent i = new Intent(getApplicationContext(), ClientActivity.class);
+
+	i.putExtra("ip", ipText.getText().toString());
+	i.putExtra("port", Integer.parseInt(portText.getText().toString()));
+
+	startActivity(i);
     }
 
     private void handleStart() {
@@ -110,28 +129,5 @@ public class Android423MP4Activity extends Activity {
 		}
 	    }
 	});
-    }
-
-    /**
-     * http://stackoverflow.com/questions/6700802/android-timer-updating-a-
-     * textview-ui
-     */
-    private void displayUsage() {
-	final TextView usageView = (TextView) findViewById(R.id.usageView);
-
-	final Handler mHandler = new Handler() {
-	    public void handleMessage(Message msg) {
-		usageView.setText(String.format("CPU Usage: %.2f%%",
-			monitor.getCPUUsage() * 100));
-	    }
-	};
-
-	Timer timer = new Timer();
-
-	timer.scheduleAtFixedRate(new TimerTask() {
-	    public void run() {
-		mHandler.obtainMessage(1).sendToTarget();
-	    }
-	}, 0, 1000);
     }
 }

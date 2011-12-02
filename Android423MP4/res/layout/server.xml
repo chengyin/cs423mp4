@@ -102,7 +102,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
-                android:id="@+id/cpuUsage"
+                android:id="@+id/usageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
