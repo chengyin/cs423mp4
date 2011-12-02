@@ -11,6 +11,8 @@ public class MatrixJob extends Job {
     int m2;
     
     public MatrixJob(int row, int col, int m1, int m2) {
+	super();
+	
 	this.row = row;
 	this.col = col;
 	this.m1 = m1;
