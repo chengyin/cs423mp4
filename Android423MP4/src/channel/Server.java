@@ -21,33 +21,4 @@ public class Server extends Channel {
 	this.inStream = new DataInputStream(this.socket.getInputStream());
 	this.outStream = new DataOutputStream(this.socket.getOutputStream());
     }
-    
-    protected void finalize() {
-	if (this.socket != null) {
-	    try {
-		this.socket.close();
-	    } catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	    }
-	}
-	
-	if (this.inStream != null) {
-	    try {
-		this.inStream.close();
-	    } catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	    }
-	}
-	
-	if (this.outStream != null) {
-	    try {
-		this.outStream.close();
-	    } catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	    }
-	}
-    }
 }
