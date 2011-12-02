@@ -9,11 +9,25 @@ import task.JobQueue;
 
 import matrix.Matrix;
 
+/**
+ * JobQueue for Matrix addition
+ * 
+ * @author chengyin
+ * 
+ */
 public class MatrixJobQueue extends JobQueue {
+    /**
+     * Generate all the jobs for a matrix addition task
+     * 
+     * @param matrix1
+     * @param matrix2
+     * @return the job queue for adding the two given matrix
+     */
     public static MatrixJobQueue generateJobQueueWithMatrixs(Matrix matrix1,
 	    Matrix matrix2) {
 	if (matrix1.getRow() != matrix2.getRow()
 		|| matrix1.getCol() != matrix2.getCol()) {
+	    // Check if the dimension is correct
 	    return null;
 	}
 
@@ -22,27 +36,38 @@ public class MatrixJobQueue extends JobQueue {
 
 	for (int r = 0; r < row; r++) {
 	    for (int c = 0; c < col; c++) {
-		jobs[r * c] = new MatrixJob(r, c, matrix1.getElement(r, c), matrix2.getElement(r, c));
+		// Generate jobs
+		jobs[r * c] = new MatrixJob(r, c, matrix1.getElement(r, c),
+			matrix2.getElement(r, c));
 	    }
 	}
-	
+
 	return (new MatrixJobQueue(Arrays.asList(jobs)));
     }
 
+    /**
+     * Generate JobQueue with an collection of jobs
+     * 
+     * @param jobs
+     *            Collection of jobs
+     */
     public MatrixJobQueue(Collection<MatrixJob> jobs) {
 	super();
 	this.jobs = new LinkedBlockingQueue<Job>(jobs);
     }
-    
+
+    /* (non-Javadoc)
+     * @see task.JobQueue#dequeue()
+     */
     public MatrixJob dequeue() {
 	return (MatrixJob) super.dequeue();
     }
-    
+
+    /**
+     * Add job to the tail of the queue
+     * @param job
+     */
     public void enqueue(MatrixJob job) {
 	super.enqueue(job);
-    }
-    
-    public int jobCount() {
-	return this.jobs.size();
     }
 }
