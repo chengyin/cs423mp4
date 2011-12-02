@@ -1,11 +1,9 @@
 package com.cs423mp4;
 
+import runner.matrix.MatrixClientRunner;
 import control.HardwareMonitor;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.widget.TextView;
 
 /**
@@ -15,8 +13,8 @@ import android.widget.TextView;
  *
  */
 public class ClientActivity extends MonitorActivity {
-    private String server_IP;
-    private int server_port;
+    private String serverIP;
+    private int serverPort;
 
     private HardwareMonitor monitor = new HardwareMonitor();
     private TextView cpuUsageView;
@@ -29,8 +27,8 @@ public class ClientActivity extends MonitorActivity {
 
 	Bundle extras = getIntent().getExtras();
 
-	this.server_IP = extras.getString("ip");
-	this.server_port = extras.getInt("port");
+	this.serverIP = extras.getString("ip");
+	this.serverPort = extras.getInt("port");
 
 	this.cpuUsageView = (TextView) findViewById(R.id.usageView);
 
@@ -57,5 +55,7 @@ public class ClientActivity extends MonitorActivity {
      */
     private void start() {
 	// Start client
+	MatrixClientRunner mcr = new MatrixClientRunner(this.serverIP, this.serverPort);
+	mcr.work();
     }
 }

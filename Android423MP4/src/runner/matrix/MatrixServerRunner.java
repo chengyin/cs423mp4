@@ -33,8 +33,7 @@ public class MatrixServerRunner extends ServerRunner {
 
 	this.worker = new MatrixWorker(0, this.hwMonitor, this.results);
 	
-	startServer();
-	work();
+	this.startServer();
     }
 
     private void output() {
@@ -88,7 +87,13 @@ public class MatrixServerRunner extends ServerRunner {
 	return resultMatrix;
     }
     
-    protected void work() {
+    public void work() {
+	try {
+	    this.serverChannel.listen();
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
 	generateMatrix();
 	sendMatrix();
 	createJobQueue();
