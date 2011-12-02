@@ -2,14 +2,16 @@ package task;
 
 import java.util.concurrent.locks.LockSupport;
 
-public abstract class Worker {
-    int id;
-    float throttling_ratio;
-    long startTime;
+import control.HardwareMonitor;
 
-    public Worker(int id) {
+public abstract class Worker {
+    protected int id;
+    protected HardwareMonitor hwMonitor;
+
+    public Worker(int id, HardwareMonitor hwMonitor) {
 	super();
 	this.id = id;
+	this.hwMonitor = hwMonitor;
     }
 
     public abstract Result processJob(Job job);
@@ -28,7 +30,7 @@ public abstract class Worker {
 	// Sleep
 	LockSupport.parkNanos((long) (Math.max(0,
 		(System.currentTimeMillis() - startTime) * 1000000
-		* this.throttling_ratio)));
+		* hwMonitor.getThrottle())));
 
 	return result;
     }
