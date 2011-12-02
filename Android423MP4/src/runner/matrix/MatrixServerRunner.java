@@ -71,7 +71,7 @@ public class MatrixServerRunner extends ServerRunner {
     private void sendMatrix() {
 	try {
 	    this.serverChannel.sendObject(this.matrix1Down);
-	    this.serverChannel.sendObject(matrix2Down);
+	    this.serverChannel.sendObject(this.matrix2Down);
 	} catch (IOException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
@@ -87,17 +87,25 @@ public class MatrixServerRunner extends ServerRunner {
 	return resultMatrix;
     }
     
-    public void work() {
+    public void listen() {
 	try {
 	    this.serverChannel.listen();
 	} catch (IOException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
+    }
+    
+    public void work() {
+	listen();
 	generateMatrix();
 	sendMatrix();
 	createJobQueue();
-	super.work();
+	while (this.jobQueue.jobCount() > 0) {
+	    this.worker.processJobWithThrottling(this.jobQueue.dequeue());
+	}
+	
+	finished();
     }
     
     protected void finished() {
