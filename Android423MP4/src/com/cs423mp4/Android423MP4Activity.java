@@ -7,8 +7,6 @@ package com.cs423mp4;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import control.HardwareMonitor;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,6 +16,7 @@ import android.view.View;
 import android.view.View.OnKeyListener;
 import android.widget.EditText;
 import android.widget.TextView;
+import control.HardwareMonitor;
 
 public class Android423MP4Activity extends Activity {
     
