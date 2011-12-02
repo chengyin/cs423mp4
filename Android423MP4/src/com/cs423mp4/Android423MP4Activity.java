@@ -14,7 +14,9 @@ import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
+import android.view.View.OnClickListener;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import control.HardwareMonitor;
 
@@ -28,7 +30,33 @@ public class Android423MP4Activity extends Activity {
 	setContentView(R.layout.main);
 
 	handleThrottleInput();
+	handleStartTypeRadio();
 	displayUsage();
+    }
+
+    private void handleStartTypeRadio() {
+	final RadioButton server = (RadioButton) findViewById(R.id.serverRadio);
+	final RadioButton client = (RadioButton) findViewById(R.id.clientRadio);
+	
+	server.setOnClickListener(new OnClickListener() {
+	   public void onClick(View v) {
+	       final View serverSettings = findViewById(R.id.serverSettings);
+	       final View clientSettings = findViewById(R.id.clientSettings);
+	       
+	       serverSettings.setVisibility(View.VISIBLE);
+	       clientSettings.setVisibility(View.GONE);
+	   }
+	});
+	
+	client.setOnClickListener(new OnClickListener() {
+	    public void onClick(View v) {
+		final View serverSettings = findViewById(R.id.serverSettings);
+		final View clientSettings = findViewById(R.id.clientSettings);
+
+		serverSettings.setVisibility(View.GONE);
+		clientSettings.setVisibility(View.VISIBLE);
+	    }
+	});
     }
 
     private void handleThrottleInput() {

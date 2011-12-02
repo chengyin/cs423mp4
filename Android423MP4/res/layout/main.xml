@@ -8,7 +8,7 @@
         android:id="@+id/throttleView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Throttle value:"
+        android:text="CPU Throttle value:"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
@@ -27,16 +27,148 @@
         android:text="@string/usagestr"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <Button
-        android:id="@+id/serverStartButton"
+    <LinearLayout
+        android:id="@+id/startButtonsLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/startSelector"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Start as server" />
+        android:layout_height="wrap_content" >
+
+        <RadioButton
+            android:id="@+id/serverRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Server" />
+
+        <TableLayout
+            android:id="@+id/serverSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent" >
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/portView"
+                    android:layout_width="100px"
+                    android:layout_height="wrap_content"
+                    android:text="Port"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <EditText
+                    android:id="@+id/portText"
+                    android:layout_width="200px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="number" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/rowView"
+                    android:layout_width="100px"
+                    android:layout_height="wrap_content"
+                    android:text="Row"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <EditText
+                    android:id="@+id/rowText"
+                    android:layout_width="200px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="number" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/colView"
+                    android:layout_width="100px"
+                    android:layout_height="wrap_content"
+                    android:text="Col"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <EditText
+                    android:id="@+id/colText"
+                    android:layout_width="200px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="number" />
+            </TableRow>
+        </TableLayout>
+
+        <RadioButton
+            android:id="@+id/clientRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Client" />
+
+        <TableLayout
+            android:id="@+id/clientSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:visibility="gone" >
+
+            <TableRow
+                android:id="@+id/tableRow4"
+                android:layout_width="100px"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/ipView"
+                    android:layout_width="150px"
+                    android:layout_height="wrap_content"
+                    android:text="Server IP"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <EditText
+                    android:id="@+id/ipText"
+                    android:layout_width="200px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="number" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow5"
+                android:layout_width="100px"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/portView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Port"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <EditText
+                    android:id="@+id/portText"
+                    android:layout_width="200px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="number" />
+            </TableRow>
+        </TableLayout>
+    </RadioGroup>
 
     <Button
-        android:id="@+id/clientStartButton"
-        android:layout_width="wrap_content"
+        android:id="@+id/startButton"
+        android:layout_width="200px"
         android:layout_height="wrap_content"
-        android:text="Start as client" />
+        android:text="Start" />
 
 </LinearLayout>
