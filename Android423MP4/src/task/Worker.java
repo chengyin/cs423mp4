@@ -1,10 +1,5 @@
 package task;
 
-<<<<<<< HEAD
-public class Worker {
-    public Worker() {
-	
-=======
 import java.util.concurrent.locks.LockSupport;
 
 public abstract class Worker {
@@ -33,9 +28,8 @@ public abstract class Worker {
 	// Sleep
 	LockSupport.parkNanos((long) (Math.max(0,
 		(System.currentTimeMillis() - startTime) * 1000000
-			* this.throttling_ratio)));
-	
+		* this.throttling_ratio)));
+
 	return result;
->>>>>>> c81df3beac8ee5d8670ad745690df8997dee04eb
     }
 }
