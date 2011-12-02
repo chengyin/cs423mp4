@@ -13,12 +13,12 @@ public class MatrixWorker extends Worker{
 	super(id, hwMonitor, results);
     }
 
-    public MatrixResult processJob(MatrixJob job) {
+    public MatrixResult process(MatrixJob job) {
 	return new MatrixResult(job.getRow(), job.getCol(), job.getM1() + job.getM2());
     }
 
     @Override
-    public Result processJob(Job job) {
-	return this.processJob((MatrixJob) job);
+    public Result process(Job job) {
+	return this.process((MatrixJob) job);
     }
 }
