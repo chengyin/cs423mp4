@@ -1,4 +1,6 @@
-package task;
+package task.matrix;
+
+import task.Job;
 
 /**
  * @author chengyin

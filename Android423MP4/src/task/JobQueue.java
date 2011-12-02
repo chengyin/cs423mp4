@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class JobQueue {
-    LinkedBlockingQueue<Job> jobs; // Linked-list based
+    protected LinkedBlockingQueue<Job> jobs; // Linked-list based
     
     /**
      * Create a JobQueue with an empty queue

@@ -1,5 +1,9 @@
-package task;
+package task.matrix;
 
+import task.Job;
+import task.Result;
+import task.Results;
+import task.Worker;
 import control.HardwareMonitor;
 
 public class MatrixWorker extends Worker{

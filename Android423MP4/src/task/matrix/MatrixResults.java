@@ -1,5 +1,7 @@
-package task;
+package task.matrix;
 
+import task.Result;
+import task.Results;
 import matrix.Matrix;
 
 public class MatrixResults extends Results {

@@ -1,4 +1,6 @@
-package task;
+package task.matrix;
+
+import task.Result;
 
 public class MatrixResult extends Result {
     int row;

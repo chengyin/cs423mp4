@@ -1,8 +1,11 @@
-package task;
+package task.matrix;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.concurrent.LinkedBlockingQueue;
+
+import task.Job;
+import task.JobQueue;
 
 import matrix.Matrix;
 

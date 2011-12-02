@@ -54,10 +54,6 @@ public abstract class Worker {
 	return result;
     }
 
-    public Results getResults() {
-        return results;
-    }
-
     public void setResults(Results results) {
         this.results = results;
     }
