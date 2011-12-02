@@ -1,12 +1,18 @@
 package matrix;
 
+import java.io.Serializable;
+
 /**
  * A wrapper for matrix, using int[][] for storages.
  * 
  * @author chengyin
  * 
  */
-public class Matrix {
+public class Matrix implements Serializable {
+    /**
+     * Serial ID
+     */
+    private static final long serialVersionUID = 32432L;
     private int[][] data;
     private int row;
     private int col;
