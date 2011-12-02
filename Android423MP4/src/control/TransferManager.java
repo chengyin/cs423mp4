@@ -1,18 +1,18 @@
 package control;
 
-import task.matrix.MatrixJob;
-import task.matrix.MatrixJobQueue;
+import task.Job;
+import task.JobQueue;
 import android.widget.Adapter;
 
 public class TransferManager {
 
-    private MatrixJobQueue localJobQueue;
+    private JobQueue localJobQueue;
 
-    public TransferManager(Adapter adapter, MatrixJobQueue localJobQueue) {
+    public TransferManager(Adapter adapter, JobQueue localJobQueue) {
 	this.localJobQueue = localJobQueue;
     }
 
-    public void enqueueRemoteJob(MatrixJob job) {
+    public void enqueueRemoteJob(Job job) {
 	localJobQueue.enqueue(job);
     }
 }

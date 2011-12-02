@@ -2,7 +2,7 @@ package task.matrix;
 
 import task.Result;
 
-public class MatrixResult extends Result {
+public class MatrixResult implements Result {
     int row;
     int col;
     int value;

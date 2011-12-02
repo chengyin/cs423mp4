@@ -6,7 +6,7 @@ import task.Job;
  * @author chengyin
  *
  */
-public class MatrixJob extends Job {
+public class MatrixJob implements Job {
     int row;
     int col;
     int m1;
