@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/throttleView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Throttle value:"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/throttleText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/usageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/usagestr"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+</LinearLayout>

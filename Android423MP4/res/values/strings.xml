@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, Android423MP4Activity!</string>
+    <string name="app_name">Android423MP4</string>
+    <string name="throttlestr">Throttle value:</string>
+    <string name="usagestr">"CPU Usage: "</string>
+
+</resources>
