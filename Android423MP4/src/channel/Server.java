@@ -3,7 +3,10 @@ package channel;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.BindException;
 import java.net.ServerSocket;
+
+import android.util.Log;
 
 public class Server extends Channel {
     int port;
@@ -29,7 +32,7 @@ public class Server extends Channel {
 	return this.serverSocket.getLocalPort();
     }
 
-    protected void finalize() {
+    public void close() {
 	if (this.socket != null) {
 	    try {
 		this.socket.close();
@@ -56,5 +59,9 @@ public class Server extends Channel {
 		e.printStackTrace();
 	    }
 	}
+    }
+
+    protected void finalize() {
+	this.close();
     }
 }

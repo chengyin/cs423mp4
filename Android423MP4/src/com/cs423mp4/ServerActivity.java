@@ -7,6 +7,7 @@ import runner.matrix.MatrixServerRunner;
 import control.HardwareMonitor;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -62,18 +63,27 @@ public class ServerActivity extends MonitorActivity {
 	    public void run() {
 		try {
 		    serverRunner = new MatrixServerRunner(port, row, col);
+		    Log.e("423-server", "Server Initialized at "
+			    + serverRunner.getServerChannel()
+				    .getLocalIPAddress() + ":"
+			    + serverRunner.getServerChannel().getLocalPort());
+
 		    updateIP(serverRunner.getServerChannel()
 			    .getLocalIPAddress());
-		    updatePort(serverRunner.getServerChannel()
-			    .getLocalPort());
+		    updatePort(serverRunner.getServerChannel().getLocalPort());
+
+		    Log.e("423-server", "Ready to run server");
 		    serverRunner.run();
+		    serverRunner.close();
 		} catch (IOException e) {
 		    // TODO Auto-generated catch block
 		    e.printStackTrace();
 		}
 
 	    }
+
 	}).start();
+
     }
 
     private void updatePort(int localPort) {
@@ -90,17 +100,5 @@ public class ServerActivity extends MonitorActivity {
     public void init() {
 	this.initView();
 	this.start();
-	
-//	this.startButton.setOnClickListener(new View.OnClickListener() {
-//	    @Override
-//	    public void onClick(View v) {
-//		that.serverRunner.work();
-//
-//		that.startButton.setVisibility(View.GONE);
-//		that.stats.setVisibility(View.VISIBLE);
-//	    }
-//	});
-
-	start();
     }
 }

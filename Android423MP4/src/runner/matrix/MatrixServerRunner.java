@@ -37,7 +37,7 @@ public class MatrixServerRunner extends ServerRunner {
 	this.startServer();
 	this.generateMatrix();
 	this.sendMatrix();
-	this.work();
+	this.processJobs();
 	this.getRemoteResults();
 	this.generateResultMatrix();
     }
@@ -63,7 +63,7 @@ public class MatrixServerRunner extends ServerRunner {
 	}
     }
 
-    public void work() {
+    public void processJobs() {
 	this.worker.processJobsWithThrottling(MatrixJobQueue
 		.generateJobQueueWithMatrixs(matrix1Up, matrix2Up));
     }
@@ -91,6 +91,10 @@ public class MatrixServerRunner extends ServerRunner {
 
     public Matrix getResultMatrix() {
 	return resultMatrix;
+    }
+    
+    public void close() {
+	this.serverChannel.close();
     }
 
 }

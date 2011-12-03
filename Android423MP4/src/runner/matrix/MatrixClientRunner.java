@@ -3,6 +3,8 @@ package runner.matrix;
 import java.io.IOException;
 import java.io.OptionalDataException;
 
+import android.util.Log;
+
 import matrix.Matrix;
 import runner.ClientRunner;
 import task.matrix.MatrixJobQueue;
@@ -19,15 +21,19 @@ public class MatrixClientRunner extends ClientRunner {
 
     public MatrixClientRunner(String serverIP, int serverPort) {
 	super(serverIP, serverPort); // Including connecting to server
-
+	Log.e("423-client", "connected to the server " + serverIP + ":" + serverPort);
+	
 	this.results = new MatrixResults();
 	this.worker = new MatrixWorker(0, this.hwMonitor, this.results);
     }
 
     public void run() {
 	this.getMatrixFromServer();
+	Log.e("423-client", "got the matrix from server");
 	this.work();
+	Log.e("423-client", "finished working");
 	this.sendResultsToServer();
+	Log.e("423-client", "sent work back to the server");
     }
 
     private void getMatrixFromServer() {
