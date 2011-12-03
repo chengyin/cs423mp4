@@ -23,7 +23,7 @@ public class MatrixServerRunner extends ServerRunner {
     protected MatrixResults results;
     protected Matrix resultMatrix;
 
-    public MatrixServerRunner(int port, int row, int col) {
+    public MatrixServerRunner(int port, int row, int col) throws IOException {
 	super(port);
 
 	this.row = row;

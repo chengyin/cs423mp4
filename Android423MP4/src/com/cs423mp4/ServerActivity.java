@@ -1,5 +1,7 @@
 package com.cs423mp4;
 
+import java.io.IOException;
+
 import runner.matrix.MatrixServerRunner;
 
 import control.HardwareMonitor;
@@ -56,7 +58,12 @@ public class ServerActivity extends MonitorActivity {
 
     public void start() {
 	// Start Server
-	this.serverRunner = new MatrixServerRunner(this.port, this.row, this.col);
+	try {
+	    this.serverRunner = new MatrixServerRunner(this.port, this.row, this.col);
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
 	this.updateIP(this.serverRunner.getServerChannel().getLocalIPAddress());
 	this.updatePort(this.serverRunner.getServerChannel().getLocalPort());
     }
