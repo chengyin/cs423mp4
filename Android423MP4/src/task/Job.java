@@ -5,5 +5,5 @@ package task;
  * @author chengyin
  *
  */
-public interface Job {
+public class Job {
 }

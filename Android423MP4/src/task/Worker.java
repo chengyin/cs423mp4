@@ -11,10 +11,10 @@ import control.HardwareMonitor;
  * @author chengyin
  * 
  */
-public abstract class Worker {
-    protected int id;
-    protected HardwareMonitor hwMonitor;
-    protected Results results;
+public abstract class Worker<J extends Job, R extends Result> {
+    int id;
+    HardwareMonitor hwMonitor;
+    Results<R> results;
 
     /**
      * Generate a worker with id and a monitor for throttling. No storage for
@@ -43,7 +43,7 @@ public abstract class Worker {
      * @param results
      *            storage for the processed results
      */
-    public Worker(int id, HardwareMonitor hwMonitor, Results results) {
+    public Worker(int id, HardwareMonitor hwMonitor, Results<R> results) {
 	super();
 	this.id = id;
 	this.hwMonitor = hwMonitor;
@@ -57,7 +57,7 @@ public abstract class Worker {
      *            job to be processed
      * @return the result of the processing
      */
-    public abstract Result process(Job job);
+    public abstract R process(J job);
 
     /**
      * Process job and store the result
@@ -66,8 +66,8 @@ public abstract class Worker {
      *            job to be processed
      * @return the result of the processing
      */
-    public Result processJob(Job job) {
-	Result result = this.processJob(job);
+    public R processJob(J job) {
+	R result = this.process(job);
 
 	if (this.results != null) {
 	    this.results.addResult(result);
@@ -87,9 +87,9 @@ public abstract class Worker {
      *            the job to be processed
      * @return result of the processing
      */
-    public Result processJobWithThrottling(Job job) {
+    public R processJobWithThrottling(J job) {
 	long startTime = System.currentTimeMillis();
-	Result result = this.processJobWithThrottling(job);
+	R result = this.processJob(job);
 
 	// Sleep
 	LockSupport.parkNanos((long) (Math.max(
@@ -100,7 +100,7 @@ public abstract class Worker {
 	return result;
     }
 
-    public void setResults(Results results) {
+    public void setResults(Results<R> results) {
 	this.results = results;
     }
 }

@@ -8,7 +8,7 @@ import task.Result;
  * @author chengyin
  * 
  */
-public class MatrixResult implements Result {
+public class MatrixResult extends Result {
     int row;
     int col;
     int value;

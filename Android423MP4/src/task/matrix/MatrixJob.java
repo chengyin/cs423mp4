@@ -8,7 +8,7 @@ import task.Job;
  * @author chengyin
  * 
  */
-public class MatrixJob implements Job {
+public class MatrixJob extends Job {
     int row;
     int col;
     int m1;

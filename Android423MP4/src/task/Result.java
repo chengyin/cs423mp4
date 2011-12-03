@@ -6,6 +6,6 @@ package task;
  * @author chengyin
  *
  */
-public interface Result {
+public class Result {
 
 }

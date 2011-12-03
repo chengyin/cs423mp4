@@ -1,14 +1,12 @@
 package task.matrix;
 
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import task.Job;
-import task.JobQueue;
-
 import matrix.Matrix;
+import task.JobQueue;
 
 /**
  * JobQueue for Matrix addition
@@ -16,9 +14,7 @@ import matrix.Matrix;
  * @author chengyin
  * 
  */
-public class MatrixJobQueue extends JobQueue {
-    protected LinkedBlockingQueue<MatrixJob> jobs;
-
+public class MatrixJobQueue extends JobQueue<MatrixJob> {
     /**
      * Generate all the jobs for a matrix addition task
      * 
@@ -49,6 +45,8 @@ public class MatrixJobQueue extends JobQueue {
 		new ArrayList<MatrixJob>(Arrays.asList(jobs))));
     }
 
+    protected LinkedBlockingQueue<MatrixJob> jobs;
+
     /**
      * Generate JobQueue with an collection of jobs
      * 
@@ -66,7 +64,7 @@ public class MatrixJobQueue extends JobQueue {
      * @see task.JobQueue#dequeue()
      */
     public MatrixJob dequeue() {
-	return (MatrixJob) super.dequeue();
+	return (MatrixJob) this.jobs.poll();
     }
 
     /**
@@ -74,7 +72,19 @@ public class MatrixJobQueue extends JobQueue {
      * 
      * @param job
      */
+    @Override
     public void enqueue(MatrixJob job) {
-	super.enqueue(job);
+	if (job instanceof MatrixJob) {
+	    this.jobs.add((MatrixJob) job);
+	}
+    }
+
+    /**
+     * Get the count of remaining jobs in the queue
+     * 
+     * @return count of the remaining jobs in the queue
+     */
+    public int jobCount() {
+	return this.jobs.size();
     }
 }

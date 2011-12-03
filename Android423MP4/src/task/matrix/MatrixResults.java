@@ -1,10 +1,11 @@
 package task.matrix;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
+import matrix.Matrix;
 import task.Result;
 import task.Results;
-import matrix.Matrix;
 
 /**
  * Storage for matrix addition results
@@ -12,11 +13,13 @@ import matrix.Matrix;
  * @author chengyin
  * 
  */
-public class MatrixResults extends Results implements Serializable {
+public class MatrixResults extends Results<MatrixResult> implements
+	Serializable {
     /**
      * 
      */
     private static final long serialVersionUID = 846281009776986124L;
+    ArrayList<MatrixResult> results;
 
     /**
      * Find out how many rows are in the matrix.
