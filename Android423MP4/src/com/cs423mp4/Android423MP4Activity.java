@@ -56,11 +56,11 @@ public class Android423MP4Activity extends Activity {
      * Set default values for UI elements
      */
     private void setDefaultValues() {
-	this.serverPortText.setText("5555");
+	this.serverPortText.setText(Integer.toString((int) (4000 + 4000 * Math.random())));
 	this.rowText.setText("100");
 	this.colText.setText("100");
 
-	this.portText.setText("5555");
+	this.portText.setText("");
     }
     
     /**
