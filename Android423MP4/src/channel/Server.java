@@ -8,12 +8,10 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 
 public class Server extends Channel {
-    int port;
-    ServerSocket serverSocket;
+    private ServerSocket serverSocket;
 
     public Server(int port) throws IOException {
 	super();
-	this.port = port;
 	this.serverSocket = new ServerSocket(port);
     }
 

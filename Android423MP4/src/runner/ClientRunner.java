@@ -6,7 +6,7 @@ import java.net.UnknownHostException;
 import channel.Client;
 
 public class ClientRunner extends MonitorRunner {
-    private Client channel;
+    Client channel;
 
     public ClientRunner(String serverIP, int serverPort) {
 	try {
@@ -16,7 +16,7 @@ public class ClientRunner extends MonitorRunner {
 	    e.printStackTrace();
 	} catch (IOException e) {
 	    // TODO Auto-generated catch block
-	    e.printStackTrace(	);
+	    e.printStackTrace();
 	}
     }
 

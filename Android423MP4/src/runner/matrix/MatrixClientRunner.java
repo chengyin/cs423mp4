@@ -11,10 +11,10 @@ import task.matrix.MatrixWorker;
 import android.util.Log;
 
 public class MatrixClientRunner extends ClientRunner {
-    MatrixWorker worker;
-    MatrixResults results;
-    Matrix matrix1;
-    Matrix matrix2;
+    private MatrixWorker worker;
+    private MatrixResults results;
+    private Matrix matrix1;
+    private Matrix matrix2;
 
     public MatrixClientRunner(String serverIP, int serverPort) {
 	super(serverIP, serverPort); // Including connecting to server
