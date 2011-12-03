@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 /**
- * Client activity. Initialize client, connect to the server and display resouce usages.
+ * Client activity. Initialize client, connect to the server and display resource usages.
  * 
  * @author chengyin
  *

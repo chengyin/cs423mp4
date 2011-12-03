@@ -59,8 +59,8 @@ public class ServerActivity extends MonitorActivity {
 
     public void start() {
 	// Start Server
-	new Thread(new Runnable() {
-	    public void run() {
+//	new Thread(new Runnable() {
+//	    public void run() {
 		try {
 		    serverRunner = new MatrixServerRunner(port, row, col);
 		    Log.e("423-server", "Server Initialized at "
@@ -80,9 +80,9 @@ public class ServerActivity extends MonitorActivity {
 		    e.printStackTrace();
 		}
 
-	    }
-
-	}).start();
+//	    }
+//
+//	}).start();
 
     }
 

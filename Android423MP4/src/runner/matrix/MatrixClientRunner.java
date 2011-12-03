@@ -30,7 +30,7 @@ public class MatrixClientRunner extends ClientRunner {
     public void run() {
 	this.getMatrixFromServer();
 	Log.e("423-client", "got the matrix from server");
-	this.work();
+	this.processWork();
 	Log.e("423-client", "finished working");
 	this.sendResultsToServer();
 	Log.e("423-client", "sent work back to the server");
@@ -52,7 +52,7 @@ public class MatrixClientRunner extends ClientRunner {
 	}
     }
 
-    public void work() {
+    public void processWork() {
 	this.worker.processJobsWithThrottling(MatrixJobQueue
 		.generateJobQueueWithMatrixs(matrix1, matrix2));
     }
