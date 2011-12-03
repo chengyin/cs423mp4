@@ -2,6 +2,7 @@ package task.matrix;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import android.util.Log;
 
@@ -64,14 +65,16 @@ public class MatrixResults extends Results<MatrixResult> implements
      * @return A matrix from the results
      */
     public Matrix generateResultMatrix() {
-	int row = this.getMaxRow(), col = this.getMaxCol();
+	int row = this.getMaxRow() + 1, col = this.getMaxCol() + 1;
 	int[][] matrix = new int[row][col];
 	MatrixResult res;
-
+	
 	for (Result result : this.results) {
 	    res = (MatrixResult) result;
 	    matrix[res.getRow()][res.getCol()] = res.getValue();
 	}
+	
+	Log.e("", Arrays.deepToString(matrix));
 
 	return (new Matrix(matrix));
     }
