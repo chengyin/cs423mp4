@@ -5,8 +5,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 
-import android.util.Log;
-
 public class Server extends Channel {
     int port;
     ServerSocket serverSocket;
