@@ -100,6 +100,19 @@ public abstract class Worker<J extends Job, R extends Result> {
 	return result;
     }
 
+    public int processJobsWithThrottling(JobQueue<J> jobQueue) {
+	J job = jobQueue.dequeue();
+	int count = 0;
+	
+	while (job != null) {
+	    count++;
+	    this.processJobWithThrottling(job);
+	    job = jobQueue.dequeue();
+	}
+	
+	return count;
+    }
+
     public void setResults(Results<R> results) {
 	this.results = results;
     }
