@@ -26,17 +26,17 @@ import control.HardwareMonitor;
  *
  */
 public class Android423MP4Activity extends Activity {
-    RadioButton serverRadio;
-    RadioButton clientRadio;
-    Button startButton;
-    View serverSettings;
-    View clientSettings;
+    private RadioButton serverRadio;
+    private RadioButton clientRadio;
+    private Button startButton;
+    private View serverSettings;
+    private View clientSettings;
 
-    EditText serverPortText;
-    EditText rowText;
-    EditText colText;
-    EditText ipText;
-    EditText portText;
+    private EditText serverPortText;
+    private EditText rowText;
+    private EditText colText;
+    private EditText ipText;
+    private EditText portText;
 
     /**
      * Create the activity

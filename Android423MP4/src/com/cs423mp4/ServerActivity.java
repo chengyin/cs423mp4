@@ -18,7 +18,7 @@ import android.widget.TextView;
  * 
  */
 public class ServerActivity extends MonitorActivity {
-    View stats;
+    private View stats;
     private View startButton;
     private int port;
     private int row;

@@ -16,11 +16,11 @@ import java.util.Enumeration;
 import android.util.Log;
 
 public abstract class Channel {
-    Socket socket = null;
-    DataOutputStream outStream = null;
-    DataInputStream inStream = null;
-    ObjectOutputStream objOutStream = null;
-    ObjectInputStream objInStream = null;
+    protected Socket socket = null;
+    protected DataOutputStream outStream = null;
+    protected DataInputStream inStream = null;
+    protected ObjectOutputStream objOutStream = null;
+    protected ObjectInputStream objInStream = null;
 
     /**
      * Send Message through the channel.

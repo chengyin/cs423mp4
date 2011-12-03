@@ -13,7 +13,7 @@ import task.matrix.MatrixWorker;
 
 public class MatrixServerRunner extends ServerRunner {
     int VALUE = 1;
-    Matrix matrix;
+    private Matrix matrix;
     private int row;
     private int col;
     protected MatrixWorker worker;
