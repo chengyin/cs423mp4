@@ -3,17 +3,14 @@ package runner.matrix;
 import java.io.IOException;
 import java.io.OptionalDataException;
 
-import android.util.Log;
-
 import matrix.Matrix;
 import runner.ClientRunner;
 import task.matrix.MatrixJobQueue;
 import task.matrix.MatrixResults;
 import task.matrix.MatrixWorker;
-import channel.Client;
+import android.util.Log;
 
 public class MatrixClientRunner extends ClientRunner {
-    Client channel;
     MatrixWorker worker;
     MatrixResults results;
     Matrix matrix1;
@@ -21,8 +18,9 @@ public class MatrixClientRunner extends ClientRunner {
 
     public MatrixClientRunner(String serverIP, int serverPort) {
 	super(serverIP, serverPort); // Including connecting to server
-	Log.e("423-client", "connected to the server " + serverIP + ":" + serverPort);
-	
+	Log.e("423-client", "connected to the server " + serverIP + ":"
+		+ serverPort);
+
 	this.results = new MatrixResults();
 	this.worker = new MatrixWorker(0, this.hwMonitor, this.results);
     }
@@ -38,8 +36,14 @@ public class MatrixClientRunner extends ClientRunner {
 
     private void getMatrixFromServer() {
 	try {
-	    this.matrix1 = (Matrix) this.channel.getObject();
-	    this.matrix2 = (Matrix) this.channel.getObject();
+	    while (this.matrix1 == null) {
+		this.matrix1 = (Matrix) this.channel.getObject();
+		Log.e("423-client", "Waiting for matrix1");
+	    }
+	    while (this.matrix2 == null) {
+		this.matrix2 = (Matrix) this.channel.getObject();
+		Log.e("423-client", "Waiting for matrix2");
+	    }
 	} catch (OptionalDataException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
