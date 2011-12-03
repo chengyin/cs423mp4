@@ -36,14 +36,13 @@ public class MatrixClientRunner extends ClientRunner {
 
     private void getMatrixFromServer() {
 	try {
-	    while (this.matrix1 == null) {
-		this.matrix1 = (Matrix) this.channel.getObject();
-		Log.e("423-client", "Waiting for matrix1");
-	    }
-	    while (this.matrix2 == null) {
-		this.matrix2 = (Matrix) this.channel.getObject();
-		Log.e("423-client", "Waiting for matrix2");
-	    }
+
+	    this.matrix1 = (Matrix) this.getChannel().getObject();
+	    Log.e("423-client", "got matrix1");
+
+	    this.matrix2 = (Matrix) this.getChannel().getObject();
+	    Log.e("423-client", "got matrix2");
+
 	} catch (OptionalDataException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
@@ -63,7 +62,7 @@ public class MatrixClientRunner extends ClientRunner {
 
     private void sendResultsToServer() {
 	try {
-	    this.channel.sendObject(this.results);
+	    this.getChannel().sendObject(this.results);
 	} catch (IOException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();

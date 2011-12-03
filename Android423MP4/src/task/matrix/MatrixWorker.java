@@ -10,8 +10,6 @@ import control.HardwareMonitor;
  * 
  */
 public class MatrixWorker extends Worker<MatrixJob, MatrixResult> {
-    protected MatrixResults results;
-
     public MatrixWorker(int id, HardwareMonitor hwMonitor) {
 	super(id, hwMonitor);
     }
@@ -40,8 +38,8 @@ public class MatrixWorker extends Worker<MatrixJob, MatrixResult> {
     public MatrixResult processJob(MatrixJob job) {
 	MatrixResult result = this.process(job);
 
-	if (this.results != null) {
-	    this.results.addResult(result);
+	if (this.getResults() != null) {
+	    this.getResults().addResult(result);
 	}
 
 	return result;

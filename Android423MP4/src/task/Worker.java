@@ -14,7 +14,7 @@ import control.HardwareMonitor;
 public abstract class Worker<J extends Job, R extends Result> {
     int id;
     HardwareMonitor hwMonitor;
-    Results<R> results;
+    private Results<R> results;
 
     /**
      * Generate a worker with id and a monitor for throttling. No storage for
@@ -29,7 +29,7 @@ public abstract class Worker<J extends Job, R extends Result> {
 	super();
 	this.id = id;
 	this.hwMonitor = hwMonitor;
-	this.results = null;
+	this.setResults(null);
     }
 
     /**
@@ -47,7 +47,7 @@ public abstract class Worker<J extends Job, R extends Result> {
 	super();
 	this.id = id;
 	this.hwMonitor = hwMonitor;
-	this.results = results;
+	this.setResults(results);
     }
 
     /**
@@ -69,8 +69,8 @@ public abstract class Worker<J extends Job, R extends Result> {
     public R processJob(J job) {
 	R result = this.process(job);
 
-	if (this.results != null) {
-	    this.results.addResult(result);
+	if (this.getResults() != null) {
+	    this.getResults().addResult(result);
 	}
 
 	return result;
@@ -115,5 +115,9 @@ public abstract class Worker<J extends Job, R extends Result> {
 
     public void setResults(Results<R> results) {
 	this.results = results;
+    }
+
+    public Results<R> getResults() {
+	return results;
     }
 }

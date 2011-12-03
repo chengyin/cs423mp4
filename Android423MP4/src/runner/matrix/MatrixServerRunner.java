@@ -21,9 +21,9 @@ public class MatrixServerRunner extends ServerRunner {
     private Matrix matrix1Down;
     private Matrix matrix2Up;
     private Matrix matrix2Down;
-    protected MatrixJobQueue jobQueue;
-    protected MatrixResults results;
-    protected Matrix resultMatrix;
+    MatrixJobQueue jobQueue;
+    MatrixResults results;
+    Matrix resultMatrix;
 
     public MatrixServerRunner(int port, int row, int col) throws IOException {
 	super(port);
@@ -49,7 +49,7 @@ public class MatrixServerRunner extends ServerRunner {
 	this.generateResultMatrix();
 	Log.e("423-server", "Final matrix generated");
     }
-    
+
     private void generateMatrix() {
 	this.matrix1Up = new Matrix((int) Math.floor((double) row / 2), col,
 		this.VALUE);
@@ -100,7 +100,7 @@ public class MatrixServerRunner extends ServerRunner {
     public Matrix getResultMatrix() {
 	return resultMatrix;
     }
-    
+
     public void close() {
 	this.serverChannel.close();
     }
