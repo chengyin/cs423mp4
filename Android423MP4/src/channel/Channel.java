@@ -41,8 +41,10 @@ public abstract class Channel {
      * @throws IOException
      */
     public String getMessage() throws IOException {
-	if (this.inStream == null)
+	if (this.inStream == null) {
 	    return null;
+	}
+	
 	return this.inStream.readUTF();
     }
 
@@ -53,11 +55,7 @@ public abstract class Channel {
      *            object that will be sent
      * @throws IOException
      */
-    public void sendObject(Serializable obj) throws IOException {
-	if (this.objOutStream == null) {
-	    this.objOutStream = new ObjectOutputStream(this.outStream);
-	}
-
+    public void sendObject(Serializable obj) throws IOException {	
 	this.objOutStream.writeObject(obj);
     }
 
@@ -91,11 +89,12 @@ public abstract class Channel {
 
     public Object getObject() throws OptionalDataException,
 	    ClassNotFoundException, IOException {
-	if (this.objInStream == null) {
-	    this.objInStream = new ObjectInputStream(this.inStream);
+	Object o = null;
+	
+	while (o == null) {
+	    o = this.objInStream.readObject();
 	}
-
-	return this.objInStream.readObject();
+	return o;
     }
 
     public int getRemotePort() {
