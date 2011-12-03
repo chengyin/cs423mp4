@@ -56,6 +56,6 @@ public class ClientActivity extends MonitorActivity {
     private void start() {
 	// Start client
 	MatrixClientRunner mcr = new MatrixClientRunner(this.serverIP, this.serverPort);
-	mcr.run();
+	new ClientTask().execute(mcr);
     }
 }
