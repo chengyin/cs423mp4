@@ -63,8 +63,8 @@ public class MatrixServerRunner extends ServerRunner {
 
     private void sendMatrix() {
 	try {
-	    this.serverChannel.sendObject(this.matrix1Down);
-	    this.serverChannel.sendObject(this.matrix2Down);
+	    this.serverChannel.sendMessage("" + this.matrix1Down);
+	    this.serverChannel.sendMessage("" + this.matrix2Down);
 	} catch (IOException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();

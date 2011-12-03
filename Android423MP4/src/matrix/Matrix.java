@@ -1,6 +1,7 @@
 package matrix;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * A wrapper for matrix, using int[][] for storages.
@@ -76,5 +77,9 @@ public class Matrix implements Serializable {
      */
     public int getCol() {
 	return col;
+    }
+    
+    public String toString() {
+	return Arrays.deepToString(data);
     }
 }
