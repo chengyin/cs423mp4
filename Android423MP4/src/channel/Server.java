@@ -15,6 +15,7 @@ public class Server extends Channel {
 	super();
 	this.port = port;
 	this.serverSocket = new ServerSocket(port);
+	
 	/*
 	Runnable listener = new Runnable() {
 	    public void run() {
