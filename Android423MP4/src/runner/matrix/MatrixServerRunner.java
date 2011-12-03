@@ -24,33 +24,28 @@ public class MatrixServerRunner extends ServerRunner {
     protected Matrix resultMatrix;
 
     public MatrixServerRunner(int port, int row, int col) {
-	super();
+	super(port);
 
-	this.port = port;
 	this.row = row;
 	this.col = col;
+
 	this.results = new MatrixResults();
-
 	this.worker = new MatrixWorker(0, this.hwMonitor, this.results);
-	
+    }
+
+    public void run() {
 	this.startServer();
+	this.waitForInComingConnection();
+	this.generateMatrix();
+	this.sendMatrix();
+	this.work();
+	this.getRemoteResults();
+	this.generateResultMatrix();
     }
 
-    private void output() {
-	this.resultMatrix = this.results.generateResultMatrix();
-    }
-
-    private void getResults() {
+    public void waitForInComingConnection() {
 	try {
-	    MatrixResults remote_result = (MatrixResults) this.serverChannel
-		    .getObject();
-	    this.results.addResults(remote_result);
-	} catch (OptionalDataException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	} catch (ClassNotFoundException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    this.serverChannel.listen();
 	} catch (IOException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
@@ -78,38 +73,34 @@ public class MatrixServerRunner extends ServerRunner {
 	}
     }
 
-    private void createJobQueue() {
-	this.jobQueue = MatrixJobQueue.generateJobQueueWithMatrixs(matrix1Up,
-		matrix2Up);
+    public void work() {
+	this.worker.processJobsWithThrottling(MatrixJobQueue
+		.generateJobQueueWithMatrixs(matrix1Up, matrix2Up));
     }
 
-    public Matrix getResultMatrix() {
-	return resultMatrix;
-    }
-    
-    public void listen() {
+    private void getRemoteResults() {
 	try {
-	    this.serverChannel.listen();
+	    MatrixResults remote_result = (MatrixResults) this.serverChannel
+		    .getObject();
+	    this.results.addResults(remote_result);
+	} catch (OptionalDataException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (ClassNotFoundException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
 	} catch (IOException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
     }
-    
-    public void work() {
-	listen();
-	generateMatrix();
-	sendMatrix();
-	createJobQueue();
-	while (this.jobQueue.jobCount() > 0) {
-	    this.worker.processJobWithThrottling(this.jobQueue.dequeue());
-	}
-	
-	finished();
+
+    private void generateResultMatrix() {
+	this.resultMatrix = this.results.generateResultMatrix();
     }
-    
-    protected void finished() {
-	getResults();
-	output();
+
+    public Matrix getResultMatrix() {
+	return resultMatrix;
     }
+
 }

@@ -4,11 +4,15 @@ import java.io.IOException;
 
 import channel.Server;
 
-public class ServerRunner extends Runner {
-    protected int port;
-    protected Server serverChannel;
+public class ServerRunner extends MonitorRunner {
+    public int port;
+    public Server serverChannel;
     
-    protected void startServer() {
+    public ServerRunner(int port) {
+	this.port = port;
+    }
+    
+    public void startServer() {
 	try {
 	    this.serverChannel = new Server(this.port);
 	} catch (IOException e) {
