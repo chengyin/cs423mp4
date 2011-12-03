@@ -3,10 +3,9 @@ package channel;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.BindException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
-
-import android.util.Log;
 
 public class Server extends Channel {
     int port;
@@ -26,6 +25,8 @@ public class Server extends Channel {
 	this.socket = this.serverSocket.accept();
 	this.inStream = new DataInputStream(this.socket.getInputStream());
 	this.outStream = new DataOutputStream(this.socket.getOutputStream());
+	this.objOutStream = new ObjectOutputStream(socket.getOutputStream());
+	this.objInStream = new ObjectInputStream(socket.getInputStream());
     }
 
     public int getLocalPort() {
