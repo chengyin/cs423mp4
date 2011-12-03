@@ -13,20 +13,6 @@ public class Server extends Channel {
 	super();
 	this.port = port;
 	this.serverSocket = new ServerSocket(port);
-	
-	/*
-	Runnable listener = new Runnable() {
-	    public void run() {
-		try {
-		    listen();
-		} catch (IOException e) {
-		}
-	    }
-	}; */
-	
-	listen();
-	
-	// new Thread(listener).start();
     }
 
     public boolean isConnected() {
