@@ -59,30 +59,46 @@ public class ServerActivity extends MonitorActivity {
 
     public void start() {
 	// Start Server
-//	new Thread(new Runnable() {
-//	    public void run() {
-		try {
-		    serverRunner = new MatrixServerRunner(port, row, col);
-		    Log.e("423-server", "Server Initialized at "
-			    + serverRunner.getServerChannel()
-				    .getLocalIPAddress() + ":"
-			    + serverRunner.getServerChannel().getLocalPort());
+	// new Thread(new Runnable() {
+	// public void run() {
+	// try {
+	// serverRunner = new MatrixServerRunner(port, row, col);
+	// Log.e("423-server", "Server Initialized at "
+	// + serverRunner.getServerChannel()
+	// .getLocalIPAddress() + ":"
+	// + serverRunner.getServerChannel().getLocalPort());
+	//
+	// updateIP(serverRunner.getServerChannel()
+	// .getLocalIPAddress());
+	// updatePort(serverRunner.getServerChannel().getLocalPort());
+	//
+	// Log.e("423-server", "Ready to run server");
+	// serverRunner.run();
+	// serverRunner.close();
+	// } catch (IOException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
 
-		    updateIP(serverRunner.getServerChannel()
-			    .getLocalIPAddress());
-		    updatePort(serverRunner.getServerChannel().getLocalPort());
+	// }
+	//
+	// }).start();
 
-		    Log.e("423-server", "Ready to run server");
-		    serverRunner.run();
-		    serverRunner.close();
-		} catch (IOException e) {
-		    // TODO Auto-generated catch block
-		    e.printStackTrace();
-		}
+	try {
+	    serverRunner = new MatrixServerRunner(port, row, col);
 
-//	    }
-//
-//	}).start();
+	    Log.e("423-server", "Server Initialized at "
+		    + serverRunner.getServerChannel().getLocalIPAddress() + ":"
+		    + serverRunner.getServerChannel().getLocalPort());
+
+	    updateIP(serverRunner.getServerChannel().getLocalIPAddress());
+	    updatePort(serverRunner.getServerChannel().getLocalPort());
+
+	    new ServerTask().execute(serverRunner);
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
 
     }
 
