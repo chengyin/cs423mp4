@@ -3,6 +3,8 @@ package task.matrix;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import android.util.Log;
+
 import matrix.Matrix;
 import task.Result;
 import task.Results;
@@ -19,7 +21,6 @@ public class MatrixResults extends Results<MatrixResult> implements
      * 
      */
     private static final long serialVersionUID = 846281009776986124L;
-    ArrayList<MatrixResult> results;
 
     /**
      * Find out how many rows are in the matrix.
@@ -28,7 +29,7 @@ public class MatrixResults extends Results<MatrixResult> implements
      */
     private int getMaxRow() {
 	int row = 0, r;
-
+	
 	for (Result result : this.results) {
 	    r = ((MatrixResult) result).getRow();
 	    if (r > row) {

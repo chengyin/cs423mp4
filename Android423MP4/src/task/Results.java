@@ -3,7 +3,7 @@ package task;
 import java.util.ArrayList;
 
 public class Results<R extends Result> {
-    ArrayList<R> results = null;
+    protected ArrayList<R> results = null;
 
     public Results() {
 	this.results = new ArrayList<R>();
