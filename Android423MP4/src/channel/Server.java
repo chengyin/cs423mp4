@@ -14,6 +14,7 @@ public class Server extends Channel {
 	this.port = port;
 	this.serverSocket = new ServerSocket(port);
 	
+	/*
 	Runnable listener = new Runnable() {
 	    public void run() {
 		try {
@@ -21,9 +22,11 @@ public class Server extends Channel {
 		} catch (IOException e) {
 		}
 	    }
-	};
+	}; */
 	
-	new Thread(listener).start();
+	listen();
+	
+	// new Thread(listener).start();
     }
 
     public boolean isConnected() {
