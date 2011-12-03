@@ -66,7 +66,7 @@ public class ServerActivity extends MonitorActivity {
 			    .getLocalIPAddress());
 		    updatePort(serverRunner.getServerChannel()
 			    .getLocalPort());
-		    serverRunner.work();
+		    serverRunner.run();
 		} catch (IOException e) {
 		    // TODO Auto-generated catch block
 		    e.printStackTrace();

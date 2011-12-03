@@ -35,23 +35,13 @@ public class MatrixServerRunner extends ServerRunner {
 
     public void run() {
 	this.startServer();
-	this.waitForInComingConnection();
 	this.generateMatrix();
 	this.sendMatrix();
 	this.work();
 	this.getRemoteResults();
 	this.generateResultMatrix();
     }
-
-    public void waitForInComingConnection() {
-	try {
-	    this.serverChannel.listen();
-	} catch (IOException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	}
-    }
-
+    
     private void generateMatrix() {
 	this.matrix1Up = new Matrix((int) Math.floor((double) row / 2), col,
 		this.VALUE);

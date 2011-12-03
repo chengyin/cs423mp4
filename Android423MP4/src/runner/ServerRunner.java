@@ -15,7 +15,6 @@ public class ServerRunner extends MonitorRunner {
     
     public void startServer() {
 	try {
-	    this.serverChannel = new Server(this.port);
 	    this.serverChannel.listen();
 	} catch (IOException e) {
 	    // TODO Auto-generated catch block
