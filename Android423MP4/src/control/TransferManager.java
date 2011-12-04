@@ -10,7 +10,7 @@ import android.widget.Adapter;
 
 public class TransferManager {
 
-    private JobQueue localJobQueue;
+    private JobQueue<Job> localJobQueue;
     private Channel channel;
 
     Runnable inputListener = new Runnable() {
@@ -26,7 +26,7 @@ public class TransferManager {
 	}
     };
 
-    public TransferManager(JobQueue localJobQueue, Channel channel) {
+    public TransferManager(JobQueue<Job> localJobQueue, Channel channel) {
 	this.localJobQueue = localJobQueue;
 	this.channel = channel;
 		
