@@ -3,13 +3,11 @@ package com.cs423mp4;
 import java.io.IOException;
 
 import runner.matrix.MatrixServerRunner;
-
-import control.HardwareMonitor;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import control.HardwareMonitor;
 
 /**
  * Server activity. Initialize server, wait for connection and start computation

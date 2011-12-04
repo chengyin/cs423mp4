@@ -3,13 +3,12 @@ package runner.matrix;
 import java.io.IOException;
 import java.io.OptionalDataException;
 
-import android.util.Log;
-
 import matrix.Matrix;
 import runner.ServerRunner;
 import task.matrix.MatrixJobQueue;
 import task.matrix.MatrixResults;
 import task.matrix.MatrixWorker;
+import android.util.Log;
 
 public class MatrixServerRunner extends ServerRunner {
     int VALUE = 1;

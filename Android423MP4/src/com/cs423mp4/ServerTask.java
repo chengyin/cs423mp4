@@ -1,7 +1,5 @@
 package com.cs423mp4;
 
-import java.io.IOException;
-
 import runner.matrix.MatrixServerRunner;
 import android.os.AsyncTask;
 import android.util.Log;
