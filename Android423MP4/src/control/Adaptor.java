@@ -23,6 +23,26 @@ public class Adaptor {
     }
 
     public void compute() {
+	HardwareMonitor remoteHwMonitor = stateManager.getRemoteState().getHwMonitor();
+	HardwareMonitor localHwMonitor = stateManager.getLocalState().getHwMonitor();
+	
+	double remoteUsage = remoteHwMonitor.getCPUUsage();
+	double localUsage = localHwMonitor.getCPUUsage();
+	
+	int remoteJobs = stateManager.getRemoteState().getJobQueueRemaining();
+	int localJobs = stateManager.getLocalState().getJobQueueRemaining();
+	
+	if (localJobs != 0 && remoteJobs != 0) {
+	    double balance = (localUsage * localJobs - remoteUsage * remoteJobs);
+	    
+	    if (balance > 0)
+		transferManager.sendJobs((int)(balance * localJobs));
+	    else
+		transferManager.receiveJobs((int)(balance * remoteJobs));
+	    
+	    Log.e("423-server", "Balance: " + balance);
+	}
+	    
 	/*
 	 * double s1 =
 	 * stateManager.getRemoteState().getHwMonitor().getCPUUsage(); double s2
