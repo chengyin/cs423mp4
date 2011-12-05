@@ -74,7 +74,7 @@ public class MatrixResults extends Results<MatrixResult> implements
 	    matrix[res.getRow()][res.getCol()] = res.getValue();
 	}
 	
-	Log.e("", Arrays.deepToString(matrix));
+	Log.e("423-server", Arrays.deepToString(matrix));
 
 	return (new Matrix(matrix));
     }
