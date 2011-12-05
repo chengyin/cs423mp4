@@ -1,5 +1,7 @@
 package task.matrix;
 
+import java.io.Serializable;
+
 import task.Job;
 
 /**
@@ -8,7 +10,11 @@ import task.Job;
  * @author chengyin
  * 
  */
-public class MatrixJob extends Job {
+public class MatrixJob extends Job implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -298967412936119125L;
     int row;
     int col;
     int m1;

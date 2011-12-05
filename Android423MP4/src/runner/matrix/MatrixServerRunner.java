@@ -6,7 +6,7 @@ import java.io.OptionalDataException;
 import channel.Channel;
 import channel.Server;
 
-import control.StateManager;
+import control.state.StateManager;
 
 import matrix.Matrix;
 import runner.ServerRunner;

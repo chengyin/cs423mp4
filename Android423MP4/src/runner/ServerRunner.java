@@ -2,7 +2,7 @@ package runner;
 
 import java.io.IOException;
 
-import control.StateManager;
+import control.state.StateManager;
 
 import android.util.Log;
 

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.OptionalDataException;
 import java.net.UnknownHostException;
 
-import control.ClientStateHandler;
+import control.state.ClientStateHandler;
 
 import channel.Client;
 
