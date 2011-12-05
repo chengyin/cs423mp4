@@ -104,4 +104,8 @@ public abstract class Channel {
     public String getRemoteIPAddress() {
 	return this.socket.getInetAddress().getHostAddress();
     }
+    
+    public boolean isConnected() {
+	return socket != null;
+    }
 }

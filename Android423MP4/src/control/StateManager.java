@@ -1,21 +1,26 @@
 package control;
 
 import java.io.IOException;
+import java.util.concurrent.locks.LockSupport;
+
+import android.util.Log;
 
 import task.matrix.MatrixJobQueue;
 import channel.Channel;
+import channel.Server;
 
 public class StateManager {
     private MatrixJobQueue jobQueue;
     private HardwareMonitor hwMonitor;
     private State state;
-    private Channel channel;
-    
+    private Server server;
+    private int sleepTime;
+
     Runnable socketListener = new Runnable() {
 	public void sendCurrentState() {
 	    state.setJobQueueRemaining(jobQueue.jobCount());
 	    try {
-		channel.sendObject(state);
+		server.sendObject(state);
 	    } catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -23,18 +28,38 @@ public class StateManager {
 	}
 
 	public void run() {
+	    try {
+		server.listen();
+	    } catch (IOException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	    }
 	    
+	    Log.e("423-server", "State manager connected");
+	    
+	    try {
+		server.sendMessage("Foo");
+	    } catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	    }
+
+	    // Sleep
+	    LockSupport.parkNanos((long) sleepTime * 10000000);
 	}
 
     };
 
     public StateManager(MatrixJobQueue jobQueue, HardwareMonitor hwMonitor,
-	    Channel channel) {
+	    Server server, int sleepTime) {
 	super();
 	this.jobQueue = jobQueue;
 	this.hwMonitor = hwMonitor;
-	this.channel = channel;
+	this.server = server;
 	this.state = new State(0, this.hwMonitor);
+	this.sleepTime = sleepTime;
+
+	new Thread(socketListener).start();
     }
 
     public int getRemoteQueueSize() {
