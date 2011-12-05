@@ -1,0 +1,29 @@
+% simple.tex - A simple article to illustrate document structure.
+
+% Andrew Roberts - June 2003
+
+\documentclass[12pt]{article}
+
+\usepackage{fullpage}
+\usepackage{cite}
+
+\topmargin = -0.5in
+\setlength{\parindent}{0.5in}
+\addtolength{\textheight}{0.5in}
+
+\begin{document}
+
+\title{Journal Entry: Appendix I of Penrod and Plastino\cite{penrod2004the}} %\LaTeX is a macro for printing the Latex logo
+\author{Rohan Sharma (sharma27)}  %\texttt formats the text to a typewriter style font
+\date{August 29, 2011}  %\today is replaced with the current date
+\maketitle
+
+The authors describe a few categorized metrics for evaluating our performance during the course. They suggest a scheme based on using a score from the range $1$ -- $5$. Of course, this is somewhat subjective. This scheme is opposed to a ``subconscious error correction'' technique proposed by Gallwey in \cite{gallwey1997the}, but I feel it could generally be useful in giving some feedback.
+
+The appendix tends to differentiate ``instructional goals'' from ``personal goals,'' but this distinction seems artificial. Ideally, the instructional goals should help in providing some honest and impartial feedback that the appendix covers.
+
+A large proportion of this self-assessment guide isn't very class-specific, e.g. being organized, participating in class, understanding the focus, etc.. The few evaluations that could be useful those outlined in the \textit{technique evaluation} and \textit{movement} sections. Otherwise, the advice given is way too generic to help in improving dance technique. Furthermore, trying to use the scoring scheme for \textit{everything} discussed in the appendix seems excessive.
+
+\bibliography{mybib}{}
+\bibliographystyle{plain}
+\end{document}
