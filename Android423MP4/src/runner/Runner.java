@@ -1,7 +1,7 @@
 package runner;
 
 /**
- * Runner inerface for convenience
+ * Runner interface for convenience
  *
  */
 public interface Runner {

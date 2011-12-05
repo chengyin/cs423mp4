@@ -20,6 +20,9 @@ public class StateManager extends AbstractStateHandler<Server> {
     private State remoteState;
     private Adaptor adaptor;
 
+    /**
+     * Thread to run in the background listening to the messages
+     */
     Runnable socketListener = new Runnable() {
 	public void run() {
 	    try {

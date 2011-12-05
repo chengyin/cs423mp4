@@ -8,6 +8,9 @@ import android.os.AsyncTask;
  */
 public class ClientTask extends AsyncTask<MatrixClientRunner, Void, Void> {
 
+    /* Run in the background for client
+     * @see android.os.AsyncTask#doInBackground(Params[])
+     */
     @Override
     protected Void doInBackground(MatrixClientRunner... params) {
 	MatrixClientRunner mcr = params[0];

@@ -36,6 +36,9 @@ public class MatrixClientRunner extends ClientRunner {
 	this.worker = new MatrixWorker(0, this.hwMonitor, this.results);
     }
 
+    /**
+     * Main runner for the server
+     */
     public void run() {
 	getMatrixFromServer();
 	Log.e("423-client", "BOOTSTRAP PHASE: got the matrix from server");
