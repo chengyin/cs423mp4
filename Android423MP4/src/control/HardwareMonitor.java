@@ -6,18 +6,16 @@ import java.io.Serializable;
 
 /**
  * Receiver of all hardware state
- *
+ * 
  */
-public class HardwareMonitor implements Serializable {
-
-    private static final long serialVersionUID = -7985361277550751875L;
+public class HardwareMonitor {
     private double throttle;
     private int level;
-    
+
     public HardwareMonitor() {
-	
+
     }
-    
+
     /**
      * http://stackoverflow.com/questions/3118234/how-to-get-memory-usage-and-
      * cpu-usage-in-android
@@ -61,14 +59,14 @@ public class HardwareMonitor implements Serializable {
 	return 0;
     }
 
-    public void setBattery(int level){
+    public void setBattery(int level) {
 	this.level = level;
     }
-    
-    public int getBattery(){
+
+    public int getBattery() {
 	return this.level;
     }
-   
+
     /**
      * @return Throttle value
      */
@@ -78,6 +76,7 @@ public class HardwareMonitor implements Serializable {
 
     /**
      * Set throttle value
+     * 
      * @param throttle
      */
     public void setThrottle(double throttle) {
