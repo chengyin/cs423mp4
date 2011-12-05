@@ -4,15 +4,18 @@ import java.io.IOException;
 import java.io.OptionalDataException;
 import java.util.concurrent.locks.LockSupport;
 
+import android.os.Message;
 import android.util.Log;
 
 import task.matrix.MatrixJobQueue;
 import channel.Channel;
 import channel.Server;
+import control.Adaptor;
 
 public class StateManager extends AbstractStateHandler<Server> {
     private int sleepTime;
     private State remoteState;
+    private Adaptor adaptor;
 
     Runnable socketListener = new Runnable() {
 	public void run() {
@@ -45,6 +48,11 @@ public class StateManager extends AbstractStateHandler<Server> {
 		    // TODO Auto-generated catch block
 		    e.printStackTrace();
 		}
+		
+		if(adaptor!=null)
+		{
+		    adaptor.Compute();
+		}
 
 		// Sleep
 		LockSupport.parkNanos((long) sleepTime * 10000000);
@@ -66,5 +74,9 @@ public class StateManager extends AbstractStateHandler<Server> {
 
     public State getRemoteState() {
 	return remoteState;
+    }
+
+    public void setAdaptor(Adaptor adaptor) {
+	this.adaptor = adaptor;
     }
 }
