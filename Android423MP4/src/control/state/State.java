@@ -13,7 +13,9 @@ public class State implements Serializable {
 
     private static final long serialVersionUID = 5303794796773215617L;
     private int jobQueueRemaining;
-    private HardwareMonitor hwMonitor;
+    private double cpuUsage;
+    private double throttle;
+    private transient HardwareMonitor hwMonitor;
 
     public State(int jobQueueRemaining, HardwareMonitor hwMonitor) {
 	super();
@@ -31,5 +33,21 @@ public class State implements Serializable {
 
     public void setJobQueueRemaining(int jobQueueRemaining) {
         this.jobQueueRemaining = jobQueueRemaining;
+    }
+
+    public double getCpuUsage() {
+	return cpuUsage;
+    }
+
+    public void setCpuUsage(double cpuUsage) {
+	this.cpuUsage = cpuUsage;
+    }
+
+    public double getThrottle() {
+	return throttle;
+    }
+
+    public void setThrottle(double throttle) {
+	this.throttle = throttle;
     }
 }

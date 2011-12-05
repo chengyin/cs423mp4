@@ -24,6 +24,8 @@ public abstract class AbstractStateHandler<C extends Channel> {
      */
     public State getState() {
 	state.setJobQueueRemaining(jobQueue.jobCount());
+	state.setCpuUsage(state.getHwMonitor().getCPUUsage());
+	state.setThrottle(state.getHwMonitor().getThrottle());
 	return state;
     }
 

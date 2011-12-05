@@ -29,13 +29,8 @@ public class Adaptor {
      * Perform load balancing when state manager signals
      */
     public void compute() {
-	HardwareMonitor remoteHwMonitor = stateManager.getRemoteState()
-		.getHwMonitor();
-	HardwareMonitor localHwMonitor = stateManager.getLocalState()
-		.getHwMonitor();
-
-	double remoteUsage = remoteHwMonitor.getCPUUsage();
-	double localUsage = localHwMonitor.getCPUUsage();
+	double remoteUsage = stateManager.getRemoteState().getCpuUsage();
+	double localUsage = stateManager.getLocalState().getCpuUsage();
 
 	int remoteJobs = stateManager.getRemoteState().getJobQueueRemaining();
 	int localJobs = stateManager.getLocalState().getJobQueueRemaining();

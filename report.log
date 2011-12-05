@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.10.19)  2 DEC 2011 07:05
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.10.19)  5 DEC 2011 07:23
 entering extended mode
  %&-line parsing enabled.
 **report.tex
@@ -56,23 +56,30 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <14.4> on input line 19.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 19.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 23.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 23.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 23.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./report.aux) ) 
 Here is how much of TeX's memory you used:
- 326 strings out of 493848
- 3733 string characters out of 1152822
- 50789 words of memory out of 3000000
- 3677 multiletter control sequences out of 15000+50000
- 5150 words of font info for 19 fonts, out of 3000000 for 9000
+ 345 strings out of 493848
+ 3937 string characters out of 1152822
+ 51789 words of memory out of 3000000
+ 3689 multiletter control sequences out of 15000+50000
+ 7935 words of font info for 28 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
- 22i,6n,19p,488b,187s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 22i,6n,19p,479b,187s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/shar
 e/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texl
-ive/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on report.pdf (1 page, 30990 bytes).
+ive/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/ty
+pe1/public/amsfonts/cm/cmti12.pfb>
+Output written on report.pdf (1 page, 42842 bytes).
 PDF statistics:
- 14 PDF objects out of 1000 (max. 8388607)
+ 18 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
