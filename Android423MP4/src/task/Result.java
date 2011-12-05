@@ -1,11 +1,9 @@
 package task;
 
 /**
- * Result of a processed job
+ * Generic result of a processed job
  * 
- * @author chengyin
- *
  */
-public class Result {
+public abstract class Result {
 
 }

@@ -1,10 +1,13 @@
 package com.cs423mp4;
 
 import runner.matrix.MatrixServerRunner;
-import android.app.AlertDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
+/**
+ * Separate UI from server work
+ *
+ */
 public class ServerTask extends AsyncTask<MatrixServerRunner, Void, Void> {
 
     @Override

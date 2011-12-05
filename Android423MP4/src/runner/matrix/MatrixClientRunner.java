@@ -16,6 +16,10 @@ import task.matrix.MatrixResults;
 import task.matrix.MatrixWorker;
 import android.util.Log;
 
+/**
+ * Runner specific to matrix client
+ * 
+ */
 public class MatrixClientRunner extends ClientRunner {
     private MatrixWorker worker;
     private MatrixResults results;
@@ -34,7 +38,7 @@ public class MatrixClientRunner extends ClientRunner {
 
     public void run() {
 	getMatrixFromServer();
-	Log.e("423-client", "got the matrix from server");
+	Log.e("423-client", "BOOTSTRAP PHASE: got the matrix from server");
 	initJobQueue();
 	Log.e("423-client", "initialized job queue");
 	initClientStateHandler();
@@ -44,34 +48,41 @@ public class MatrixClientRunner extends ClientRunner {
 	processWork();
 	Log.e("423-client", "finished working");
 	sendResultsToServer();
-	Log.e("423-client", "sent work back to the server");
+	Log.e("423-client", "AGGREGATION PHASE: sent work back to the server");
     }
 
+    /**
+     * Receive bottom half of matrix
+     */
     private void getMatrixFromServer() {
 	try {
 
-	    this.matrix1 = (Matrix) this.getChannel().getObject();
+	    matrix1 = (Matrix) this.getChannel().getObject();
 	    Log.e("423-client", "got matrix1");
 
-	    this.matrix2 = (Matrix) this.getChannel().getObject();
+	    matrix2 = (Matrix) this.getChannel().getObject();
 	    Log.e("423-client", "got matrix2");
 
 	} catch (OptionalDataException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    Log.e("423-client", e.toString());
 	} catch (ClassNotFoundException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    Log.e("423-client", e.toString());
 	} catch (IOException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    Log.e("423-client", e.toString());
 	}
     }
 
+    /**
+     * Make job queue
+     */
     public void initJobQueue() {
 	jobQueue = MatrixJobQueue.generateJobQueueWithMatrixs(matrix1, matrix2);
     }
 
+    /**
+     * Initialize state hander with new channel. Make the state channel's port
+     * one larger than transfer channel's port
+     */
     public void initClientStateHandler() {
 	try {
 	    stateChannel = new Client(serverIP, serverPort + 1);
@@ -82,17 +93,27 @@ public class MatrixClientRunner extends ClientRunner {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
-	clientStateHandler = new ClientStateHandler(jobQueue, hwMonitor, stateChannel);
+	clientStateHandler = new ClientStateHandler(jobQueue, hwMonitor,
+		stateChannel);
     }
-    
+
+    /**
+     * Make transfer handler
+     */
     public void initTransferHandler() {
 	transferHandler = new ClientTransferHandler(jobQueue, channel);
     }
 
+    /**
+     * Start worker
+     */
     public void processWork() {
-	this.worker.processJobsWithThrottling(jobQueue);
+	worker.processJobsWithThrottling(jobQueue);
     }
 
+    /**
+     * Aggregation phase
+     */
     private void sendResultsToServer() {
 	try {
 	    this.getChannel().sendObject(this.results);

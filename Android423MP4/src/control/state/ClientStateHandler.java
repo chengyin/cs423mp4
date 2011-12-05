@@ -1,31 +1,42 @@
 package control.state;
 
 import java.io.IOException;
-import java.util.concurrent.locks.LockSupport;
+
+import android.util.Log;
 
 import control.HardwareMonitor;
 
 import task.matrix.MatrixJobQueue;
 
-import channel.Channel;
 import channel.Client;
 
-import android.util.Log;
-
+/**
+ * Listens on requests for state and sends appropriately
+ *
+ */
 public class ClientStateHandler extends AbstractStateHandler<Client> {
 
+    /**
+     * Initialized and starts listener thread
+     * 
+     * @param jobQueue
+     * @param hwMonitor
+     * @param channel
+     */
     public ClientStateHandler(MatrixJobQueue jobQueue,
 	    HardwareMonitor hwMonitor, Client channel) {
 	super(jobQueue, hwMonitor, channel);
 	new Thread(socketListener).start();
     }
 
-    public void sendCurrentState() {
+    /**
+     * Helper to send state to server
+     */
+    private void sendCurrentState() {
 	try {
 	    channel.sendObject(getState());
 	} catch (IOException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    Log.e("423-client", e.toString());
 	}
     }
 
@@ -33,11 +44,11 @@ public class ClientStateHandler extends AbstractStateHandler<Client> {
 	public void run() {
 	    while (channel.isConnected()) {
 		try {
+		    // "R" Means state request
 		    if (channel.getMessage().equals("R"))
 			sendCurrentState();
 		} catch (IOException e) {
-		    // TODO Auto-generated catch block
-		    e.printStackTrace();
+		    Log.e("423-client", e.toString());
 		}
 	    }
 	}

@@ -11,7 +11,6 @@ import task.JobQueue;
 /**
  * JobQueue for Matrix addition
  * 
- * @author chengyin
  * 
  */
 public class MatrixJobQueue extends JobQueue<MatrixJob> {
@@ -75,7 +74,7 @@ public class MatrixJobQueue extends JobQueue<MatrixJob> {
     @Override
     public void enqueue(MatrixJob job) {
 	if (job instanceof MatrixJob) {
-	    this.jobs.add((MatrixJob) job);
+	    jobs.add((MatrixJob) job);
 	}
     }
 
@@ -85,6 +84,6 @@ public class MatrixJobQueue extends JobQueue<MatrixJob> {
      * @return count of the remaining jobs in the queue
      */
     public int jobCount() {
-	return this.jobs.size();
+	return jobs.size();
     }
 }

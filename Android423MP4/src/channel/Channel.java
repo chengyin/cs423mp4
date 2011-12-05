@@ -15,6 +15,9 @@ import java.util.Enumeration;
 
 import android.util.Log;
 
+/**
+ * A wrapper around sockets used for TCP/IP communication
+ */
 public abstract class Channel {
     protected Socket socket = null;
     protected DataOutputStream outStream = null;
@@ -30,7 +33,7 @@ public abstract class Channel {
      * @throws IOException
      */
     public void sendMessage(String message) throws IOException {
-	this.outStream.writeUTF(message);
+	outStream.writeUTF(message);
     }
 
     /**
@@ -41,11 +44,11 @@ public abstract class Channel {
      * @throws IOException
      */
     public String getMessage() throws IOException {
-	if (this.inStream == null) {
+	if (inStream == null) {
 	    return null;
 	}
-	
-	return this.inStream.readUTF();
+
+	return inStream.readUTF();
     }
 
     /**
@@ -55,18 +58,18 @@ public abstract class Channel {
      *            object that will be sent
      * @throws IOException
      */
-    public void sendObject(Serializable obj) throws IOException {	
-	this.objOutStream.writeObject(obj);
+    public void sendObject(Serializable obj) throws IOException {
+	objOutStream.writeObject(obj);
     }
 
     public int getLocalPort() {
-	return this.socket.getLocalPort();
+	return socket.getLocalPort();
     }
 
     /**
      * http://www.droidnova.com/get-the-ip-address-of-your-device,304.html
      * 
-     * @return
+     * @return A string representation of IP address
      */
     public String getLocalIPAddress() {
 	try {
@@ -87,24 +90,29 @@ public abstract class Channel {
 	return null;
     }
 
+    /**
+     * Blocks till an object is received from other end
+     * 
+     * @return Deserialized object
+     * @throws OptionalDataException
+     * @throws ClassNotFoundException
+     * @throws IOException
+     */
     public Object getObject() throws OptionalDataException,
 	    ClassNotFoundException, IOException {
 	Object o = null;
-	
+
 	while (o == null) {
-	    o = this.objInStream.readObject();
+	    o = objInStream.readObject();
 	}
 	return o;
     }
 
-    public int getRemotePort() {
-	return this.socket.getPort();
-    }
-
-    public String getRemoteIPAddress() {
-	return this.socket.getInetAddress().getHostAddress();
-    }
-    
+    /**
+     * Note: this does not work if socket is closed
+     * 
+     * @return If there has been a connection
+     */
     public boolean isConnected() {
 	return socket != null;
     }

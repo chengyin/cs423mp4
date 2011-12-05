@@ -3,17 +3,22 @@ package task;
 import java.util.Collection;
 import java.util.concurrent.LinkedBlockingQueue;
 
+/**
+ * A wrapper around a thread safe queue
+ *
+ * @param <J> Type of job
+ */
 public class JobQueue<J extends Job> {
     LinkedBlockingQueue<J> jobs = null;
     
     public JobQueue() {
 	super();
-	this.jobs = new LinkedBlockingQueue<J>();
+	jobs = new LinkedBlockingQueue<J>();
     }
     
     public JobQueue(Collection<J> jobs) {
 	super();
-	this.jobs = new LinkedBlockingQueue<J>(jobs);
+	jobs = new LinkedBlockingQueue<J>(jobs);
     }
     
     /**
@@ -24,7 +29,7 @@ public class JobQueue<J extends Job> {
      * @throws InterruptedException
      */
     public void enqueue(J job) throws InterruptedException {
-	this.jobs.put(job);
+	jobs.put(job);
     }
 
     /**
@@ -33,15 +38,14 @@ public class JobQueue<J extends Job> {
      * @return job at the head
      */
     public J dequeue() {
-	return this.jobs.poll();
+	return jobs.poll();
     }
     
     /**
      * Delete Jobs if we ask the remote node to do more jobs.
      */
     public void deljob(J job) {
-	
-	this.jobs.remove(job);
+	jobs.remove(job);
     }
 
     /**
@@ -49,9 +53,13 @@ public class JobQueue<J extends Job> {
      * @return count of the remaining jobs in the queue
      */
     public int jobCount() {
-	return this.jobs.size();
+	return jobs.size();
     }
     
+    /**
+     * 
+     * @return is queue empty?
+     */
     public boolean isEmpty() {
 	return jobs.isEmpty();
     }

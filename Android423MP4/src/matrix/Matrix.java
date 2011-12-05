@@ -6,8 +6,6 @@ import java.util.Arrays;
 /**
  * A wrapper for matrix, using int[][] for storages.
  * 
- * @author chengyin
- * 
  */
 public class Matrix implements Serializable {
     /**
@@ -32,7 +30,7 @@ public class Matrix implements Serializable {
 
 	for (int r = 0; r < row; r++) {
 	    for (int c = 0; c < col; c++) {
-		this.data[r][c] = value;
+		data[r][c] = value;
 	    }
 	}
     }
@@ -55,7 +53,7 @@ public class Matrix implements Serializable {
      * @return element at (row, col)
      */
     public int getElement(int row, int col) {
-	return this.data[row][col];
+	return data[row][col];
     }
 
     /**

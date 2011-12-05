@@ -1,7 +1,6 @@
 package task.matrix;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import android.util.Log;
@@ -13,14 +12,9 @@ import task.Results;
 /**
  * Storage for matrix addition results
  * 
- * @author chengyin
- * 
  */
 public class MatrixResults extends Results<MatrixResult> implements
 	Serializable {
-    /**
-     * 
-     */
     private static final long serialVersionUID = 846281009776986124L;
 
     /**

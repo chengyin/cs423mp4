@@ -1,5 +1,9 @@
 package runner;
 
-public abstract class Runner {
+/**
+ * Runner inerface for convenience
+ *
+ */
+public interface Runner {
     
 }

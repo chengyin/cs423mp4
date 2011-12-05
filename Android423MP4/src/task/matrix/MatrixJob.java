@@ -7,18 +7,16 @@ import task.Job;
 /**
  * Job in the Matrix-Addition
  * 
- * @author chengyin
- * 
  */
 public class MatrixJob extends Job implements Serializable {
     /**
      * 
      */
     private static final long serialVersionUID = -298967412936119125L;
-    int row;
-    int col;
-    int m1;
-    int m2;
+    private int row;
+    private int col;
+    private int m1;
+    private int m2;
 
     /**
      * Create a matrix addition job
@@ -49,9 +47,9 @@ public class MatrixJob extends Job implements Serializable {
      * @see java.lang.Object#toString()
      */
     public String toString() {
-	String[] tokens = { Integer.toString(this.row),
-		Integer.toString(this.col), Integer.toString(this.m1),
-		Integer.toString(this.m2), };
+	String[] tokens = { Integer.toString(row),
+		Integer.toString(col), Integer.toString(m1),
+		Integer.toString(m2), };
 
 	String str = tokens[0];
 

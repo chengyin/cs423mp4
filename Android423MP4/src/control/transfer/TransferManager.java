@@ -9,46 +9,57 @@ import channel.Channel;
 import task.JobQueue;
 import task.matrix.MatrixJob;
 
+/**
+ * A server-side transfer initiator and performer
+ * 
+ */
 public class TransferManager {
 
     private JobQueue<MatrixJob> localJobQueue;
     private Channel channel;
 
+    /**
+     * Send at most n objects to client
+     * @param n Number of objects
+     */
     public void sendJobs(int n) {
 	try {
+	    // Send n jobs to client
 	    channel.sendMessage(n + " S");
 	} catch (IOException e1) {
-	    // TODO Auto-generated catch block
-	    e1.printStackTrace();
+	    Log.e("423-server", e1.toString());
 	}
 	for (int i = 0; i < n; i++) {
 	    try {
 		if (!localJobQueue.isEmpty()) {
 		    channel.sendObject(localJobQueue.dequeue());
-		}
-		else {
+		} else {
+		    // Signal client to stop
 		    channel.sendObject(new Dummy());
 		    break;
 		}
 	    } catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+		Log.e("423-server", e.toString());
 	    }
 	}
     }
 
+    /**
+     * Try and get as much as n object from the client
+     * 
+     * @param n Number of objects
+     */
     public void receiveJobs(int n) {
 	try {
 	    channel.sendMessage(n + " R");
 	} catch (IOException e1) {
-	    // TODO Auto-generated catch block
-	    e1.printStackTrace();
+	    Log.e("423-server", e1.toString());
 	}
 	for (int i = 0; i < n; i++)
 	    try {
 		Object obj = channel.getObject();
 		if (obj instanceof MatrixJob)
-		    localJobQueue.enqueue((MatrixJob)obj);
+		    localJobQueue.enqueue((MatrixJob) obj);
 		else
 		    break;
 	    } catch (OptionalDataException e) {
@@ -65,7 +76,7 @@ public class TransferManager {
 		e.printStackTrace();
 	    }
     }
-    
+
     public TransferManager(JobQueue<MatrixJob> localJobQueue, Channel channel) {
 	this.localJobQueue = localJobQueue;
 	this.channel = channel;

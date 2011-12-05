@@ -10,8 +10,7 @@ import java.net.UnknownHostException;
 
 /**
  * Channel for clients
- * @author chengyin
- *
+ * 
  */
 public class Client extends Channel {
     /**

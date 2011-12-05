@@ -2,15 +2,20 @@ package task;
 
 import java.util.ArrayList;
 
+/**
+ * Aggregation of results
+ *
+ * @param <R> Type of result of workload
+ */
 public class Results<R extends Result> {
     protected ArrayList<R> results = null;
 
     public Results() {
-	this.results = new ArrayList<R>();
+	results = new ArrayList<R>();
     }
 
     public Results(int capacity) {
-	this.results = new ArrayList<R>(capacity);
+	results = new ArrayList<R>(capacity);
     }
 
     /**

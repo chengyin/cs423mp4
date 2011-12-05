@@ -2,6 +2,9 @@ package runner;
 
 import control.HardwareMonitor;
 
-public abstract class MonitorRunner extends Runner {
+/**
+ * Abstract class to link local hardware monitor
+ */
+public abstract class MonitorRunner implements Runner {
     public HardwareMonitor hwMonitor = new HardwareMonitor();
 }

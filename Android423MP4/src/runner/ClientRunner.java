@@ -7,12 +7,14 @@ import android.util.Log;
 
 import channel.Client;
 
-import control.Adaptor;
 import control.state.ClientStateHandler;
-import control.state.State;
 import control.transfer.ClientTransferHandler;
 
-public class ClientRunner extends MonitorRunner {
+/**
+ * Run Client
+ *
+ */
+public abstract class ClientRunner extends MonitorRunner {
     protected Client channel;
     protected Client stateChannel;
     protected ClientStateHandler clientStateHandler;

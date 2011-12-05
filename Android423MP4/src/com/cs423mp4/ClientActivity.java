@@ -7,10 +7,9 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 /**
- * Client activity. Initialize client, connect to the server and display resource usages.
+ * Client activity. Initialize client, connect to the server and display
+ * resource usages.
  * 
- * @author chengyin
- *
  */
 public class ClientActivity extends MonitorActivity {
     private String serverIP;
@@ -41,7 +40,7 @@ public class ClientActivity extends MonitorActivity {
     private void initView() {
 	this.displayCPUUsage(this.cpuUsageView, this.monitor);
     }
-    
+
     /**
      * Initialize
      */
@@ -55,7 +54,8 @@ public class ClientActivity extends MonitorActivity {
      */
     private void start() {
 	// Start client
-	MatrixClientRunner mcr = new MatrixClientRunner(this.serverIP, this.serverPort);
+	MatrixClientRunner mcr = new MatrixClientRunner(this.serverIP,
+		this.serverPort);
 	new ClientTask().execute(mcr);
     }
 }

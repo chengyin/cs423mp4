@@ -5,19 +5,14 @@ import java.io.IOException;
 import runner.matrix.MatrixServerRunner;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 import control.HardwareMonitor;
 
 /**
  * Server activity. Initialize server, wait for connection and start computation
  * 
- * @author chengyin
- * 
  */
 public class ServerActivity extends MonitorActivity {
-    private View stats;
-    private View startButton;
     private int port;
     private int row;
     private int col;
@@ -28,6 +23,9 @@ public class ServerActivity extends MonitorActivity {
 
     private HardwareMonitor monitor = new HardwareMonitor();
 
+    /**
+     * Start of activity
+     */
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.server);
@@ -45,8 +43,6 @@ public class ServerActivity extends MonitorActivity {
      * Initialize view
      */
     public void initView() {
-	this.stats = this.findViewById(R.id.stats);
-	this.startButton = this.findViewById(R.id.startButton);
 	this.usageView = (TextView) findViewById(R.id.usageView);
 
 	this.portView = (TextView) this.findViewById(R.id.portView);
@@ -100,10 +96,20 @@ public class ServerActivity extends MonitorActivity {
 
     }
 
+    /**
+     * Updates the text field for port
+     * 
+     * @param localPort Port of server
+     */
     private void updatePort(int localPort) {
 	this.portView.setText(Integer.toString(localPort));
     }
 
+    /**
+     * Updates the text field for server IP
+     * 
+     * @param localIPAddress IP of server
+     */
     private void updateIP(String localIPAddress) {
 	this.ipView.setText(localIPAddress);
     }

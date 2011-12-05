@@ -6,13 +6,11 @@ import control.HardwareMonitor;
 /**
  * Worker to perform matrix addition
  * 
- * @author chengyin
- * 
  */
 public class MatrixWorker extends Worker<MatrixJob, MatrixResult> {
-    
+
     private static final int TIMES = 1000;
-    
+
     public MatrixWorker(int id, HardwareMonitor hwMonitor) {
 	super(id, hwMonitor);
     }
@@ -23,6 +21,7 @@ public class MatrixWorker extends Worker<MatrixJob, MatrixResult> {
 
     /**
      * Add two numbers in the matrix
+     * 
      * @param job
      * @return result of the addition
      */
@@ -32,7 +31,7 @@ public class MatrixWorker extends Worker<MatrixJob, MatrixResult> {
 	    sum += job.getM2();
 	return new MatrixResult(job.getRow(), job.getCol(), sum);
     }
-    
+
     /**
      * Process job and store the result
      * 
@@ -41,10 +40,10 @@ public class MatrixWorker extends Worker<MatrixJob, MatrixResult> {
      * @return the result of the processing
      */
     public MatrixResult processJob(MatrixJob job) {
-	MatrixResult result = this.process(job);
+	MatrixResult result = process(job);
 
-	if (this.getResults() != null) {
-	    this.getResults().addResult(result);
+	if (getResults() != null) {
+	    getResults().addResult(result);
 	}
 
 	return result;

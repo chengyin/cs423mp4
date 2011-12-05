@@ -5,13 +5,11 @@ import task.Result;
 /**
  * Result for matrix addition
  * 
- * @author chengyin
- * 
  */
 public class MatrixResult extends Result {
-    int row;
-    int col;
-    int value;
+    private int row;
+    private int col;
+    private int value;
 
     /**
      * Generate a result

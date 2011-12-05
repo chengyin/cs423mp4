@@ -1,7 +1,10 @@
 /**
- * TODO: http://stackoverflow.com/questions/5054076/how-to-write-an-android-socketserver-to-listen-on-wifi
+ * CS 423 MP4: A dynamic load balancer
+ * 
+ * @author Lin-Ming Hsu <lhsu7@illinois.edu>
+ *         Chengyin Liu <liu189@illinois.edu>
+ *         Rohan Sharma <sharma27@illinois.edu>
  */
-
 package com.cs423mp4;
 
 import control.HardwareMonitor;
@@ -19,10 +22,9 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 
 /**
- * Main activity as the home screen for the app. Including basic settings for the next step.
+ * Main activity as the home screen for the app. Including basic settings for
+ * the next step.
  * 
- * @author chengyin
- *
  */
 public class Android423MP4Activity extends Activity {
     private RadioButton serverRadio;
@@ -36,7 +38,7 @@ public class Android423MP4Activity extends Activity {
     private EditText colText;
     private EditText ipText;
     private EditText portText;
-    
+
     HardwareMonitor battery;
 
     /**
@@ -57,13 +59,14 @@ public class Android423MP4Activity extends Activity {
      * Set default values for UI elements
      */
     private void setDefaultValues() {
-	this.serverPortText.setText(Integer.toString((int) (4000 + 4000 * Math.random())));
+	this.serverPortText.setText(Integer.toString((int) (4000 + 4000 * Math
+		.random())));
 	this.rowText.setText("100");
 	this.colText.setText("100");
 
 	this.portText.setText("");
     }
-    
+
     /**
      * Initialize the view.
      */
@@ -144,11 +147,11 @@ public class Android423MP4Activity extends Activity {
     }
 
     /**
-     * Start the client activity 
+     * Start the client activity
      */
     private void startClient() {
 	Intent i = new Intent(getApplicationContext(), ClientActivity.class);
-	
+
 	// pass settings
 	i.putExtra("ip", ipText.getText().toString());
 	i.putExtra("port", Integer.parseInt(portText.getText().toString()));
@@ -171,30 +174,32 @@ public class Android423MP4Activity extends Activity {
 	    }
 	});
     }
-    
 
     /**
-     * Computes the battery level by registering a receiver to the intent triggered 
-     * by a battery status/level change.
+     * Computes the battery level by registering a receiver to the intent
+     * triggered by a battery status/level change.
      */
     public void batteryLevel() {
 
-        BroadcastReceiver batteryLevelReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                context.unregisterReceiver(this);
-                int rawlevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-                int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-                int level = -1;
-                if (rawlevel >= 0 && scale > 0) {
-                    level = (rawlevel * 100) / scale;
-                }
-                //batterLevel.setText("Battery Level Remaining: " + level + "%");
-                
-                battery.setBattery(level);
-            }
-        };
-        IntentFilter batteryLevelFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-        registerReceiver(batteryLevelReceiver, batteryLevelFilter);
+	BroadcastReceiver batteryLevelReceiver = new BroadcastReceiver() {
+	    @Override
+	    public void onReceive(Context context, Intent intent) {
+		context.unregisterReceiver(this);
+		int rawlevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL,
+			-1);
+		int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+		int level = -1;
+		if (rawlevel >= 0 && scale > 0) {
+		    level = (rawlevel * 100) / scale;
+		}
+		// batterLevel.setText("Battery Level Remaining: " + level +
+		// "%");
+
+		battery.setBattery(level);
+	    }
+	};
+	IntentFilter batteryLevelFilter = new IntentFilter(
+		Intent.ACTION_BATTERY_CHANGED);
+	registerReceiver(batteryLevelReceiver, batteryLevelFilter);
     }
 }

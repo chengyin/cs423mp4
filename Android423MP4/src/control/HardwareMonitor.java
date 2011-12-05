@@ -4,16 +4,12 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.io.Serializable;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.BatteryManager;
-
+/**
+ * Receiver of all hardware state
+ *
+ */
 public class HardwareMonitor implements Serializable {
-    /**
-     * 
-     */
+
     private static final long serialVersionUID = -7985361277550751875L;
     private double throttle;
     private int level;
@@ -22,13 +18,11 @@ public class HardwareMonitor implements Serializable {
 	
     }
     
-    
-
     /**
      * http://stackoverflow.com/questions/3118234/how-to-get-memory-usage-and-
      * cpu-usage-in-android
      * 
-     * @return
+     * @return Fraction of total CPU usage of system
      */
     public double getCPUUsage() {
 	try {
@@ -70,13 +64,22 @@ public class HardwareMonitor implements Serializable {
     public void setBattery(int level){
 	this.level = level;
     }
+    
     public int getBattery(){
 	return this.level;
     }
+   
+    /**
+     * @return Throttle value
+     */
     public double getThrottle() {
 	return throttle;
     }
 
+    /**
+     * Set throttle value
+     * @param throttle
+     */
     public void setThrottle(double throttle) {
 	this.throttle = throttle;
     }

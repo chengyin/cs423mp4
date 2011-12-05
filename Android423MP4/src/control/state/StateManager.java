@@ -4,15 +4,17 @@ import java.io.IOException;
 import java.io.OptionalDataException;
 import java.util.concurrent.locks.LockSupport;
 
-import android.os.Message;
 import android.util.Log;
 
 import task.matrix.MatrixJobQueue;
-import channel.Channel;
 import channel.Server;
 import control.Adaptor;
 import control.HardwareMonitor;
 
+/**
+ * State manager; receives state every second
+ * 
+ */
 public class StateManager extends AbstractStateHandler<Server> {
     private static final int SLEEPTIME = 10;
     private State remoteState;
@@ -23,32 +25,28 @@ public class StateManager extends AbstractStateHandler<Server> {
 	    try {
 		channel.listen();
 	    } catch (IOException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
+		Log.e("423-server", e1.toString());
 	    }
 
-	    while (true) {
+	    while (channel.isConnected()) {
 		// Request for information
 		try {
 		    channel.sendMessage("R");
 		} catch (IOException e) {
-		    // TODO Auto-generated catch block
-		    e.printStackTrace();
+		    Log.e("423-server", e.toString());
 		}
 
 		try {
 		    remoteState = (State) channel.getObject();
 		} catch (OptionalDataException e) {
-		    // TODO Auto-generated catch block
-		    e.printStackTrace();
+		    Log.e("423-server", e.toString());
 		} catch (ClassNotFoundException e) {
-		    // TODO Auto-generated catch block
-		    e.printStackTrace();
+		    Log.e("423-server", e.toString());
 		} catch (IOException e) {
-		    // TODO Auto-generated catch block
-		    e.printStackTrace();
+		    Log.e("423-server", e.toString());
 		}
 
+		// Run load balancer
 		if (adaptor != null) {
 		    adaptor.compute();
 		}
@@ -59,6 +57,13 @@ public class StateManager extends AbstractStateHandler<Server> {
 	}
     };
 
+    /**
+     * Initialize fields and run main thread
+     * 
+     * @param jobQueue
+     * @param hwMonitor
+     * @param server
+     */
     public StateManager(MatrixJobQueue jobQueue, HardwareMonitor hwMonitor,
 	    Server server) {
 	super(jobQueue, hwMonitor, server);
@@ -74,6 +79,11 @@ public class StateManager extends AbstractStateHandler<Server> {
 	return remoteState;
     }
 
+    /**
+     * To run load balancer
+     * 
+     * @param adaptor
+     */
     public void setAdaptor(Adaptor adaptor) {
 	this.adaptor = adaptor;
     }

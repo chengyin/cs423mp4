@@ -7,18 +7,30 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 
+/**
+ * Channel for servers
+ */
 public class Server extends Channel {
     private ServerSocket serverSocket;
 
+    /**
+     * Constructor that initializes channel and creates serverSocket
+     * 
+     * @param port
+     *            Port to listen to
+     * @throws IOException
+     */
     public Server(int port) throws IOException {
 	super();
-	this.serverSocket = new ServerSocket(port);
+	serverSocket = new ServerSocket(port);
     }
 
-    public boolean isConnected() {
-	return this.socket != null;
-    }
-
+    /**
+     * A blocking call to accept and then initialize
+     * streams
+     * 
+     * @throws IOException
+     */
     public void listen() throws IOException {
 	this.socket = this.serverSocket.accept();
 	this.inStream = new DataInputStream(this.socket.getInputStream());
@@ -27,10 +39,16 @@ public class Server extends Channel {
 	this.objInStream = new ObjectInputStream(socket.getInputStream());
     }
 
+    /**
+     * @return Port of server
+     */
     public int getLocalPort() {
 	return this.serverSocket.getLocalPort();
     }
 
+    /**
+     * Close the socket
+     */
     public void close() {
 	if (this.socket != null) {
 	    try {
@@ -60,6 +78,9 @@ public class Server extends Channel {
 	}
     }
 
+    /**
+     * Let GC close the socket
+     */
     protected void finalize() {
 	this.close();
     }

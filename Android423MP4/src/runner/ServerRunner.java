@@ -10,7 +10,11 @@ import android.util.Log;
 
 import channel.Server;
 
-public class ServerRunner extends MonitorRunner {
+/**
+ * General runner for server
+ *
+ */
+public abstract class ServerRunner extends MonitorRunner {
     protected int port;
     protected Server serverChannel;
     protected StateManager stateManager;

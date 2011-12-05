@@ -16,6 +16,10 @@ import task.matrix.MatrixResults;
 import task.matrix.MatrixWorker;
 import android.util.Log;
 
+/**
+ * Runner specific to matrix
+ * 
+ */
 public class MatrixServerRunner extends ServerRunner {
     int VALUE = 1;
     private int row;
@@ -29,6 +33,17 @@ public class MatrixServerRunner extends ServerRunner {
     private MatrixResults results;
     private Matrix resultMatrix;
 
+    /**
+     * Initialize transfer socket and matrix
+     * 
+     * @param port
+     *            Server port
+     * @param row
+     *            Rows of matrix
+     * @param col
+     *            Columns of matrix
+     * @throws IOException
+     */
     public MatrixServerRunner(int port, int row, int col) throws IOException {
 	super(port);
 
@@ -39,6 +54,9 @@ public class MatrixServerRunner extends ServerRunner {
 	this.worker = new MatrixWorker(0, this.hwMonitor, this.results);
     }
 
+    /**
+     * Run the entire task
+     */
     public void run() {
 	generateMatrix();
 	Log.e("423-server", "Matrix generated");
@@ -49,7 +67,7 @@ public class MatrixServerRunner extends ServerRunner {
 	startServer();
 	Log.e("423-server", "Client connected");
 	sendMatrix();
-	Log.e("423-server", "Matrix sent to remote");
+	Log.e("423-server", "BOOTSTRAP: Matrix sent to remote");
 	initTransferManager();
 	Log.e("423-server", "Transfer manager initialized");
 	initAdaptor();
@@ -57,11 +75,14 @@ public class MatrixServerRunner extends ServerRunner {
 	processJobs();
 	Log.e("423-server", "Do my work");
 	this.getRemoteResults();
-	Log.e("423-server", "Got result from remote");
+	Log.e("423-server", "AGGREGATION: Got result from remote");
 	this.generateResultMatrix();
 	Log.e("423-server", "Final matrix generated");
     }
 
+    /**
+     * Generate upper and lower matrices
+     */
     private void generateMatrix() {
 	this.matrix1Up = new Matrix((int) Math.floor((double) row / 2), col,
 		this.VALUE);
@@ -72,11 +93,18 @@ public class MatrixServerRunner extends ServerRunner {
 	this.matrix2Down = new Matrix((int) Math.ceil((double) row / 2), col,
 		this.VALUE);
     }
-    
+
+    /**
+     * Make job queue
+     */
     private void initJobQueue() {
-	jobQueue = MatrixJobQueue.generateJobQueueWithMatrixs(matrix1Up, matrix2Up);
+	jobQueue = MatrixJobQueue.generateJobQueueWithMatrixs(matrix1Up,
+		matrix2Up);
     }
 
+    /**
+     * BOOTSTRAP: send matrix
+     */
     private void sendMatrix() {
 	try {
 	    this.serverChannel.sendObject(this.matrix1Down);
@@ -86,29 +114,45 @@ public class MatrixServerRunner extends ServerRunner {
 	    e.printStackTrace();
 	}
     }
-    
+
+    /**
+     * Make transfer manager
+     */
     public void initTransferManager() {
 	transferManager = new TransferManager(jobQueue, serverChannel);
     }
-    
+
+    /**
+     * Make adaptor
+     */
     public void initAdaptor() {
 	adaptor = new Adaptor(stateManager, transferManager);
     }
 
+    /**
+     * Start worker
+     */
     public void processJobs() {
 	worker.processJobsWithThrottling(jobQueue);
     }
-    
+
+    /**
+     * Load state manager with state channel port one greater than that of
+     * transfer channel
+     */
     private void startStateManager() {
 	Server stateServerChannel = null;
 	try {
 	    stateServerChannel = new Server(port + 1);
 	} catch (IOException e) {
-	    Log.e("423-server ERROR", ""+ + serverChannel.getLocalPort());
+	    Log.e("423-server ERROR", "" + +serverChannel.getLocalPort());
 	}
-   	stateManager = new StateManager(jobQueue, hwMonitor, stateServerChannel);
+	stateManager = new StateManager(jobQueue, hwMonitor, stateServerChannel);
     }
 
+    /**
+     * Aggregation phase
+     */
     private void getRemoteResults() {
 	try {
 	    MatrixResults remote_result = (MatrixResults) this.serverChannel
@@ -126,6 +170,9 @@ public class MatrixServerRunner extends ServerRunner {
 	}
     }
 
+    /**
+     * Generate result in Matrix object form
+     */
     private void generateResultMatrix() {
 	this.resultMatrix = this.results.generateResultMatrix();
     }
@@ -134,6 +181,9 @@ public class MatrixServerRunner extends ServerRunner {
 	return resultMatrix;
     }
 
+    /**
+     * Close the socket
+     */
     public void close() {
 	this.serverChannel.close();
     }

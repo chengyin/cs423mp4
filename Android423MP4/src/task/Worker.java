@@ -8,8 +8,6 @@ import control.HardwareMonitor;
  * Computation unit. Handles job and returns (or stores) result. It can be
  * throttled with HardwareMonitor
  * 
- * @author chengyin
- * 
  */
 public abstract class Worker<J extends Job, R extends Result> {
     int id;
