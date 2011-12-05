@@ -2,8 +2,13 @@ package control;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.io.Serializable;
 
-public class HardwareMonitor {
+public class HardwareMonitor implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -7985361277550751875L;
     private double throttle;
     
     public HardwareMonitor() {

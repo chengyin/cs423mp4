@@ -3,6 +3,11 @@ package runner.matrix;
 import java.io.IOException;
 import java.io.OptionalDataException;
 
+import channel.Channel;
+import channel.Server;
+
+import control.StateManager;
+
 import matrix.Matrix;
 import runner.ServerRunner;
 import task.matrix.MatrixJobQueue;
@@ -35,13 +40,17 @@ public class MatrixServerRunner extends ServerRunner {
     }
 
     public void run() {
-	this.startServer();
-	Log.e("423-server", "Client connected");
-	this.generateMatrix();
+	generateMatrix();
 	Log.e("423-server", "Matrix generated");
-	this.sendMatrix();
+	initJobQueue();
+	Log.e("423-server", "Job queue initialized");
+	startStateManager();
+	Log.e("423-server", "Initialized state manager");
+	startServer();
+	Log.e("423-server", "Client connected");
+	sendMatrix();
 	Log.e("423-server", "Matrix sent to remote");
-	this.processJobs();
+	processJobs();
 	Log.e("423-server", "Do my work");
 	this.getRemoteResults();
 	Log.e("423-server", "Got result from remote");
@@ -59,6 +68,10 @@ public class MatrixServerRunner extends ServerRunner {
 	this.matrix2Down = new Matrix((int) Math.ceil((double) row / 2), col,
 		this.VALUE);
     }
+    
+    private void initJobQueue() {
+	jobQueue = MatrixJobQueue.generateJobQueueWithMatrixs(matrix1Up, matrix2Up);
+    }
 
     private void sendMatrix() {
 	try {
@@ -71,8 +84,17 @@ public class MatrixServerRunner extends ServerRunner {
     }
 
     public void processJobs() {
-	this.worker.processJobsWithThrottling(MatrixJobQueue
-		.generateJobQueueWithMatrixs(matrix1Up, matrix2Up));
+	worker.processJobsWithThrottling(jobQueue);
+    }
+    
+    private void startStateManager() {
+	Server stateServerChannel = null;
+	try {
+	    stateServerChannel = new Server(port + 1);
+	} catch (IOException e) {
+	    Log.e("423-server ERROR", ""+ + serverChannel.getLocalPort());
+	}
+   	stateManager = new StateManager(jobQueue, hwMonitor, stateServerChannel, 10);
     }
 
     private void getRemoteResults() {

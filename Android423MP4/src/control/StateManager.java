@@ -28,24 +28,20 @@ public class StateManager {
 	}
 
 	public void run() {
+	    Log.e("423-server", "State manager connected");
+
 	    try {
 		server.listen();
 	    } catch (IOException e1) {
 		// TODO Auto-generated catch block
 		e1.printStackTrace();
 	    }
-	    
-	    Log.e("423-server", "State manager connected");
-	    
-	    try {
-		server.sendMessage("Foo");
-	    } catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	    }
+
+	    sendCurrentState();
 
 	    // Sleep
 	    LockSupport.parkNanos((long) sleepTime * 10000000);
+
 	}
 
     };

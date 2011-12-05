@@ -9,8 +9,9 @@ import android.util.Log;
 import channel.Server;
 
 public class ServerRunner extends MonitorRunner {
-    public int port;
-    public Server serverChannel;
+    protected int port;
+    protected Server serverChannel;
+    protected StateManager stateManager;
     
     public ServerRunner(int port) throws IOException {
 	this.port = port;
@@ -21,7 +22,6 @@ public class ServerRunner extends MonitorRunner {
 	try {
 	    Log.e("423-server", "server tries to listen");
 	    this.serverChannel.listen();
-	    StateManager stateManager = new StateManager(null, null, new Server(port + 1), 1);
 	} catch (IOException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
