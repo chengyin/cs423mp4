@@ -4,16 +4,25 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.io.Serializable;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.BatteryManager;
+
 public class HardwareMonitor implements Serializable {
     /**
      * 
      */
     private static final long serialVersionUID = -7985361277550751875L;
     private double throttle;
+    private int level;
     
     public HardwareMonitor() {
 	
     }
+    
+    
 
     /**
      * http://stackoverflow.com/questions/3118234/how-to-get-memory-usage-and-
@@ -58,6 +67,12 @@ public class HardwareMonitor implements Serializable {
 	return 0;
     }
 
+    public void setBattery(int level){
+	this.level = level;
+    }
+    public int getBattery(){
+	return this.level;
+    }
     public double getThrottle() {
 	return throttle;
     }

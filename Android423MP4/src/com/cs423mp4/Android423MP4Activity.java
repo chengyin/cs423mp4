@@ -4,8 +4,13 @@
 
 package com.cs423mp4;
 
+import control.HardwareMonitor;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.BatteryManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,6 +36,8 @@ public class Android423MP4Activity extends Activity {
     private EditText colText;
     private EditText ipText;
     private EditText portText;
+    
+    HardwareMonitor battery;
 
     /**
      * Create the activity
@@ -163,5 +170,31 @@ public class Android423MP4Activity extends Activity {
 		}
 	    }
 	});
+    }
+    
+
+    /**
+     * Computes the battery level by registering a receiver to the intent triggered 
+     * by a battery status/level change.
+     */
+    public void batteryLevel() {
+
+        BroadcastReceiver batteryLevelReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                context.unregisterReceiver(this);
+                int rawlevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+                int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+                int level = -1;
+                if (rawlevel >= 0 && scale > 0) {
+                    level = (rawlevel * 100) / scale;
+                }
+                //batterLevel.setText("Battery Level Remaining: " + level + "%");
+                
+                battery.setBattery(level);
+            }
+        };
+        IntentFilter batteryLevelFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        registerReceiver(batteryLevelReceiver, batteryLevelFilter);
     }
 }
