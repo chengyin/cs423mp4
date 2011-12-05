@@ -2,6 +2,11 @@ package runner.matrix;
 
 import java.io.IOException;
 import java.io.OptionalDataException;
+import java.net.UnknownHostException;
+
+import control.ClientStateHandler;
+
+import channel.Client;
 
 import matrix.Matrix;
 import runner.ClientRunner;
@@ -15,6 +20,7 @@ public class MatrixClientRunner extends ClientRunner {
     private MatrixResults results;
     private Matrix matrix1;
     private Matrix matrix2;
+    private MatrixJobQueue jobQueue;
 
     public MatrixClientRunner(String serverIP, int serverPort) {
 	super(serverIP, serverPort); // Including connecting to server
@@ -26,11 +32,15 @@ public class MatrixClientRunner extends ClientRunner {
     }
 
     public void run() {
-	this.getMatrixFromServer();
+	getMatrixFromServer();
 	Log.e("423-client", "got the matrix from server");
-	this.processWork();
+	initJobQueue();
+	Log.e("423-client", "initialized job queue");
+	initClientStateHandler();
+	Log.e("423-client", "initialized client state handler");
+	processWork();
 	Log.e("423-client", "finished working");
-	this.sendResultsToServer();
+	sendResultsToServer();
 	Log.e("423-client", "sent work back to the server");
     }
 
@@ -55,9 +65,25 @@ public class MatrixClientRunner extends ClientRunner {
 	}
     }
 
+    public void initJobQueue() {
+	jobQueue = MatrixJobQueue.generateJobQueueWithMatrixs(matrix1, matrix2);
+    }
+
+    public void initClientStateHandler() {
+	try {
+	    stateChannel = new Client(serverIP, serverPort + 1);
+	} catch (UnknownHostException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+	clientStateHandler = new ClientStateHandler(jobQueue, hwMonitor, stateChannel);
+    }
+
     public void processWork() {
-	this.worker.processJobsWithThrottling(MatrixJobQueue
-		.generateJobQueueWithMatrixs(matrix1, matrix2));
+	this.worker.processJobsWithThrottling(jobQueue);
     }
 
     private void sendResultsToServer() {

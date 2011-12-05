@@ -7,25 +7,22 @@ import android.util.Log;
 
 import channel.Client;
 
+import control.ClientStateHandler;
 import control.State;
 
 public class ClientRunner extends MonitorRunner {
     protected Client channel;
     protected Client stateChannel;
+    protected ClientStateHandler clientStateHandler;
+    protected String serverIP;
+    protected int serverPort;
 
     public ClientRunner(String serverIP, int serverPort) {
+	this.serverIP = serverIP;
+	this.serverPort = serverPort;
 	try {
 	    Log.e("423-client", "Starting client");
-	    this.setChannel(new Client(serverIP, serverPort));
-	    Log.e("423-client", "Connecting state channel");
-	    stateChannel = new Client(serverIP, serverPort + 1);
-	    Log.e("423-client", "Getting message");
-	    try {
-		Log.e("423-client", "Server CPU usage: "+((State)stateChannel.getObject()).getHwMonitor().getCPUUsage());
-	    } catch (ClassNotFoundException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	    }
+	    channel = new Client(serverIP, serverPort);
 	} catch (UnknownHostException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
