@@ -6,4 +6,7 @@ package task;
  *
  */
 public class Job {
+    public int chunks;
+    public String x;
+    public String y;
 }

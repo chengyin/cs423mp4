@@ -1,6 +1,7 @@
 package com.cs423mp4;
 
 import runner.matrix.MatrixServerRunner;
+import android.app.AlertDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 

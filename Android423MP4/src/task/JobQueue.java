@@ -35,6 +35,14 @@ public class JobQueue<J extends Job> {
     public J dequeue() {
 	return this.jobs.poll();
     }
+    
+    /**
+     * Delete Jobs if we ask the remote node to do more jobs.
+     */
+    public void deljob(J job) {
+	
+	this.jobs.remove(job);
+    }
 
     /**
      * Get the count of remaining jobs in the queue
