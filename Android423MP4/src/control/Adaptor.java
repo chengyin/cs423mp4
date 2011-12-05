@@ -2,6 +2,8 @@ package control;
 
 import java.io.IOException;
 
+import control.state.StateManager;
+
 import android.os.Handler;
 import android.os.Message;
 
@@ -14,7 +16,6 @@ public class Adaptor {
     private JobQueue localJobQueue;
     private TransferManager transferManager;
 
-
     public Adaptor(HardwareMonitor monitor, StateManager stateManager,
 	    JobQueue localJobQueue, TransferManager transferManager) {
 	this.monitor = monitor;
@@ -23,7 +24,8 @@ public class Adaptor {
 	this.transferManager = transferManager;
 	stateManager.setAdaptor(this);
     }
-    public void Compute()
+
+    public void compute()
     {
 	double s1 = stateManager.getRemoteState().getHwMonitor().getCPUUsage();
 	double s2 = monitor.getCPUUsage();
@@ -65,7 +67,7 @@ public class Adaptor {
 	    }
 	}
     }
-    
+
     public Runnable inputListener = new Runnable() {
 	public void run() {
 

@@ -7,8 +7,8 @@ import android.util.Log;
 
 import channel.Client;
 
-import control.ClientStateHandler;
-import control.State;
+import control.state.ClientStateHandler;
+import control.state.State;
 
 public class ClientRunner extends MonitorRunner {
     protected Client channel;

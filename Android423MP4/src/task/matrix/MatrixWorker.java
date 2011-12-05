@@ -24,8 +24,10 @@ public class MatrixWorker extends Worker<MatrixJob, MatrixResult> {
      * @return result of the addition
      */
     public MatrixResult process(MatrixJob job) {
-	return new MatrixResult(job.getRow(), job.getCol(), job.getM1()
-		+ job.getM2());
+	int sum = job.getM1();
+	for (int i = 0; i < 10000; i++)
+	    sum += job.getM2();
+	return new MatrixResult(job.getRow(), job.getCol(), sum);
     }
     
     /**
