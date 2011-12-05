@@ -106,7 +106,7 @@ public class MatrixServerRunner extends ServerRunner {
 	} catch (IOException e) {
 	    Log.e("423-server ERROR", ""+ + serverChannel.getLocalPort());
 	}
-   	stateManager = new StateManager(jobQueue, hwMonitor, stateServerChannel, 10);
+   	stateManager = new StateManager(jobQueue, hwMonitor, stateServerChannel);
     }
 
     private void getRemoteResults() {

@@ -14,13 +14,12 @@ import control.Adaptor;
 import control.HardwareMonitor;
 
 public class StateManager extends AbstractStateHandler<Server> {
-    private int sleepTime;
+    private static final int SLEEPTIME = 10;
     private State remoteState;
     private Adaptor adaptor;
 
     Runnable socketListener = new Runnable() {
 	public void run() {
-	    Log.e("423-server", "State manager connected");
 	    try {
 		channel.listen();
 	    } catch (IOException e1) {
@@ -38,7 +37,7 @@ public class StateManager extends AbstractStateHandler<Server> {
 		}
 
 		try {
-		    remoteState = (State) channel.getObject();		
+		    remoteState = (State) channel.getObject();
 		} catch (OptionalDataException e) {
 		    // TODO Auto-generated catch block
 		    e.printStackTrace();
@@ -49,21 +48,20 @@ public class StateManager extends AbstractStateHandler<Server> {
 		    // TODO Auto-generated catch block
 		    e.printStackTrace();
 		}
-		
-		if(adaptor!=null) {
+
+		if (adaptor != null) {
 		    adaptor.compute();
 		}
 
 		// Sleep
-		LockSupport.parkNanos((long) sleepTime * 10000000);
+		LockSupport.parkNanos((long) SLEEPTIME * 10000000);
 	    }
 	}
     };
 
     public StateManager(MatrixJobQueue jobQueue, HardwareMonitor hwMonitor,
-	    Server server, int sleepTime) {
+	    Server server) {
 	super(jobQueue, hwMonitor, server);
-	this.sleepTime = sleepTime;
 
 	new Thread(socketListener).start();
     }
