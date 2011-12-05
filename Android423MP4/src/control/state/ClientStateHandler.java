@@ -31,7 +31,7 @@ public class ClientStateHandler extends AbstractStateHandler<Client> {
 
     Runnable socketListener = new Runnable() {
 	public void run() {
-	    while (true) {
+	    while (channel.isConnected()) {
 		try {
 		    if (channel.getMessage().equals("R"))
 			sendCurrentState();

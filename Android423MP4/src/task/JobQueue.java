@@ -51,4 +51,8 @@ public class JobQueue<J extends Job> {
     public int jobCount() {
 	return this.jobs.size();
     }
+    
+    public boolean isEmpty() {
+	return jobs.isEmpty();
+    }
 }

@@ -7,6 +7,7 @@ import android.util.Log;
 
 import channel.Client;
 
+import control.Adaptor;
 import control.state.ClientStateHandler;
 import control.state.State;
 import control.transfer.ClientTransferHandler;
@@ -18,7 +19,7 @@ public class ClientRunner extends MonitorRunner {
     protected ClientTransferHandler transferHandler;
     protected String serverIP;
     protected int serverPort;
-
+    
     public ClientRunner(String serverIP, int serverPort) {
 	this.serverIP = serverIP;
 	this.serverPort = serverPort;

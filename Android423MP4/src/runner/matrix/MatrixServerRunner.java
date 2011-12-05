@@ -3,9 +3,9 @@ package runner.matrix;
 import java.io.IOException;
 import java.io.OptionalDataException;
 
-import channel.Channel;
 import channel.Server;
 
+import control.Adaptor;
 import control.state.StateManager;
 import control.transfer.TransferManager;
 
@@ -18,7 +18,6 @@ import android.util.Log;
 
 public class MatrixServerRunner extends ServerRunner {
     int VALUE = 1;
-    private Matrix matrix;
     private int row;
     private int col;
     protected MatrixWorker worker;
@@ -26,9 +25,9 @@ public class MatrixServerRunner extends ServerRunner {
     private Matrix matrix1Down;
     private Matrix matrix2Up;
     private Matrix matrix2Down;
-    MatrixJobQueue jobQueue;
-    MatrixResults results;
-    Matrix resultMatrix;
+    private MatrixJobQueue jobQueue;
+    private MatrixResults results;
+    private Matrix resultMatrix;
 
     public MatrixServerRunner(int port, int row, int col) throws IOException {
 	super(port);
@@ -51,6 +50,10 @@ public class MatrixServerRunner extends ServerRunner {
 	Log.e("423-server", "Client connected");
 	sendMatrix();
 	Log.e("423-server", "Matrix sent to remote");
+	initTransferManager();
+	Log.e("423-server", "Transfer manager initialized");
+	initAdaptor();
+	Log.e("423-server", "Adaptor initiialized");
 	processJobs();
 	Log.e("423-server", "Do my work");
 	this.getRemoteResults();
@@ -86,6 +89,10 @@ public class MatrixServerRunner extends ServerRunner {
     
     public void initTransferManager() {
 	transferManager = new TransferManager(jobQueue, serverChannel);
+    }
+    
+    public void initAdaptor() {
+	adaptor = new Adaptor(stateManager, transferManager);
     }
 
     public void processJobs() {
@@ -130,5 +137,4 @@ public class MatrixServerRunner extends ServerRunner {
     public void close() {
 	this.serverChannel.close();
     }
-
 }

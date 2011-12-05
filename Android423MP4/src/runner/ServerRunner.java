@@ -2,6 +2,7 @@ package runner;
 
 import java.io.IOException;
 
+import control.Adaptor;
 import control.state.StateManager;
 import control.transfer.TransferManager;
 
@@ -14,6 +15,7 @@ public class ServerRunner extends MonitorRunner {
     protected Server serverChannel;
     protected StateManager stateManager;
     protected TransferManager transferManager;
+    protected Adaptor adaptor;
     
     public ServerRunner(int port) throws IOException {
 	this.port = port;
