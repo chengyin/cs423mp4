@@ -7,6 +7,7 @@ import channel.Channel;
 import channel.Server;
 
 import control.state.StateManager;
+import control.transfer.TransferManager;
 
 import matrix.Matrix;
 import runner.ServerRunner;
@@ -81,6 +82,10 @@ public class MatrixServerRunner extends ServerRunner {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
+    }
+    
+    public void initTransferManager() {
+	transferManager = new TransferManager(jobQueue, serverChannel);
     }
 
     public void processJobs() {

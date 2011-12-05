@@ -3,6 +3,7 @@ package runner;
 import java.io.IOException;
 
 import control.state.StateManager;
+import control.transfer.TransferManager;
 
 import android.util.Log;
 
@@ -12,6 +13,7 @@ public class ServerRunner extends MonitorRunner {
     protected int port;
     protected Server serverChannel;
     protected StateManager stateManager;
+    protected TransferManager transferManager;
     
     public ServerRunner(int port) throws IOException {
 	this.port = port;

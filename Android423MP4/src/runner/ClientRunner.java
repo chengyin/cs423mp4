@@ -9,11 +9,13 @@ import channel.Client;
 
 import control.state.ClientStateHandler;
 import control.state.State;
+import control.transfer.ClientTransferHandler;
 
 public class ClientRunner extends MonitorRunner {
     protected Client channel;
     protected Client stateChannel;
     protected ClientStateHandler clientStateHandler;
+    protected ClientTransferHandler transferHandler;
     protected String serverIP;
     protected int serverPort;
 

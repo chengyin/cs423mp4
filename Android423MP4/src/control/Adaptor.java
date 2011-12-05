@@ -3,6 +3,7 @@ package control;
 import java.io.IOException;
 
 import control.state.StateManager;
+import control.transfer.TransferManager;
 
 import android.os.Handler;
 import android.os.Message;
@@ -26,7 +27,8 @@ public class Adaptor {
     }
 
     public void compute()
-    {
+    { 
+	/*
 	double s1 = stateManager.getRemoteState().getHwMonitor().getCPUUsage();
 	double s2 = monitor.getCPUUsage();
 	double j1 = stateManager.getRemoteState().getJobQueueRemaining();
@@ -65,7 +67,7 @@ public class Adaptor {
 		    localJobQueue.deljob(job);
 		}
 	    }
-	}
+	} */
     }
 
     public Runnable inputListener = new Runnable() {

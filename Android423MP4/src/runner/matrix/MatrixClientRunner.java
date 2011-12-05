@@ -5,6 +5,7 @@ import java.io.OptionalDataException;
 import java.net.UnknownHostException;
 
 import control.state.ClientStateHandler;
+import control.transfer.ClientTransferHandler;
 
 import channel.Client;
 
@@ -38,6 +39,8 @@ public class MatrixClientRunner extends ClientRunner {
 	Log.e("423-client", "initialized job queue");
 	initClientStateHandler();
 	Log.e("423-client", "initialized client state handler");
+	initTransferHandler();
+	Log.e("423-client", "initialized client transfer handler");
 	processWork();
 	Log.e("423-client", "finished working");
 	sendResultsToServer();
@@ -80,6 +83,10 @@ public class MatrixClientRunner extends ClientRunner {
 	    e.printStackTrace();
 	}
 	clientStateHandler = new ClientStateHandler(jobQueue, hwMonitor, stateChannel);
+    }
+    
+    public void initTransferHandler() {
+	transferHandler = new ClientTransferHandler(jobQueue, channel);
     }
 
     public void processWork() {
