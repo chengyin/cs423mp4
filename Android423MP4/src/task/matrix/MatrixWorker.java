@@ -10,6 +10,9 @@ import control.HardwareMonitor;
  * 
  */
 public class MatrixWorker extends Worker<MatrixJob, MatrixResult> {
+    
+    private static final int TIMES = 1000;
+    
     public MatrixWorker(int id, HardwareMonitor hwMonitor) {
 	super(id, hwMonitor);
     }
@@ -25,7 +28,7 @@ public class MatrixWorker extends Worker<MatrixJob, MatrixResult> {
      */
     public MatrixResult process(MatrixJob job) {
 	int sum = job.getM1();
-	for (int i = 0; i < 10000; i++)
+	for (int i = 0; i < TIMES; i++)
 	    sum += job.getM2();
 	return new MatrixResult(job.getRow(), job.getCol(), sum);
     }
