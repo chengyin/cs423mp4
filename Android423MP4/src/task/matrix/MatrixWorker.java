@@ -9,7 +9,7 @@ import control.HardwareMonitor;
  */
 public class MatrixWorker extends Worker<MatrixJob, MatrixResult> {
 
-    private static final int TIMES = 1000;
+    private static final int TIMES = 100000;
 
     public MatrixWorker(int id, HardwareMonitor hwMonitor) {
 	super(id, hwMonitor);
